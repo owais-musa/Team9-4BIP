@@ -14,8 +14,17 @@ import android.widget.Toast;
 
 public class FourButtonsFragment extends Fragment {
 
-	public static enum PRESS_TYPE {SHORT_PRESS, LONG_PRESS};
-	public static enum PRESS_ID {BLUE_PRESS, YELLOW_PRESS, GREEN_PRESS, RED_PRESS};
+	public static enum PressType { SHORT_PRESS, LONG_PRESS };
+	public static enum PressID {
+		BLUE_PRESS (R.color.blue),
+		YELLOW_PRESS (R.color.yellow),
+		GREEN_PRESS (R.color.green),
+		RED_PRESS (R.color.red);
+		
+		private final int color;
+		PressID(int c) { color = c; }
+		int color() { return color; }
+		};
 	
 	private StateMachine mSM;
 	
@@ -29,7 +38,7 @@ public class FourButtonsFragment extends Fragment {
 		int[] bIDs = {R.id.blue_button, R.id.yellow_button, R.id.green_button, R.id.red_button};
 		for(int i = 0; i < 4; i++) {
 			Button b = (Button) view.findViewById(bIDs[i]);
-			b.setOnTouchListener(new ButtonListener(PRESS_ID.values()[i]));
+			b.setOnTouchListener(new ButtonListener(PressID.values()[i]));
 		}
 		
 		return view;
@@ -46,9 +55,9 @@ public class FourButtonsFragment extends Fragment {
 	
 	class ButtonListener implements OnTouchListener {
 		long pressTime, duration;
-		FourButtonsFragment.PRESS_ID buttonID;
+		PressID buttonID;
 		
-		public ButtonListener(FourButtonsFragment.PRESS_ID id) {
+		public ButtonListener(PressID id) {
 			buttonID = id;
 		}
 		
@@ -60,11 +69,11 @@ public class FourButtonsFragment extends Fragment {
 				duration = System.currentTimeMillis() - pressTime;
 				if(duration >= 500 && duration < 2000) { //short press
 					Toast.makeText(getActivity(), "short " + buttonID, Toast.LENGTH_SHORT).show();
-					mSM.changeState(FourButtonsFragment.PRESS_TYPE.SHORT_PRESS, buttonID);
+					mSM.changeState(PressType.SHORT_PRESS, buttonID);
 					return true;
 				} else if(duration >= 2000) { //long press
 					Toast.makeText(getActivity(), "long " + buttonID, Toast.LENGTH_SHORT).show();
-					mSM.changeState(FourButtonsFragment.PRESS_TYPE.LONG_PRESS, buttonID);
+					mSM.changeState(PressType.LONG_PRESS, buttonID);
 					return true;
 				}
 				//DEBUG
