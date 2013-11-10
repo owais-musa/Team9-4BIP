@@ -1,5 +1,6 @@
 package il.ac.technion.yptnine.fbip;
 
+import il.ac.technion.yptnine.controller.Controller;
 import il.ac.technion.yptnine.fbip.R;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,7 @@ public class MainActivity extends Activity {
 		PROTOCOL_FRAG,
 		SETTINGS_FRAG;
 	}
-	private StateMachine stateMachine;
+	private Controller m_Controller;
 
 	private LongPressInfoFragment longFrag;
 	
@@ -33,7 +34,7 @@ public class MainActivity extends Activity {
 		Log.d("MAIN", "setting view");
 		setContentView(R.layout.activity_main);
 
-		stateMachine = new StateMachine(this);
+		m_Controller = new Controller(this);
 
 		Log.d("MAIN", "adding fragments");
 		longFrag = new LongPressInfoFragment();
@@ -49,11 +50,11 @@ public class MainActivity extends Activity {
 		getFragmentManager().beginTransaction()
 		        .add(R.id.short_press_info_frame, shortFrag).commit();
 
-		buttonsFrag = FourButtonsFragment.newInstance(stateMachine);
+		buttonsFrag = FourButtonsFragment.newInstance(m_Controller);
 		getFragmentManager().beginTransaction()
 		        .add(R.id.buttons_frame, buttonsFrag).commit();
 
-		stateMachine.start();
+		m_Controller.Start();
 	}
 
 	@Override

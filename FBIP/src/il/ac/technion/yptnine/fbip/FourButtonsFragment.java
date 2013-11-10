@@ -1,5 +1,6 @@
 package il.ac.technion.yptnine.fbip;
 
+import il.ac.technion.yptnine.controller.Controller;
 import il.ac.technion.yptnine.fbip.R;
 
 import android.app.Fragment;
@@ -26,12 +27,12 @@ public class FourButtonsFragment extends Fragment {
 		int color() { return color; }
 		};
 	
-	private StateMachine mSM;
+		private Controller m_Controller;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-		mSM = (StateMachine) getArguments().getSerializable("sm");
+		m_Controller = (Controller) getArguments().getSerializable("controller");
 		
         // Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.buttons_fragment, container, false);
@@ -44,10 +45,10 @@ public class FourButtonsFragment extends Fragment {
 		return view;
     }
 
-	public static FourButtonsFragment newInstance(StateMachine states) {
+	public static FourButtonsFragment newInstance(Controller states) {
 		FourButtonsFragment frag = new FourButtonsFragment();
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("sm", states);
+		bundle.putSerializable("controller", states);
 		frag.setArguments(bundle);
 		
 		return frag;
@@ -69,11 +70,11 @@ public class FourButtonsFragment extends Fragment {
 				duration = System.currentTimeMillis() - pressTime;
 				if(duration >= 500 && duration < 2000) { //short press
 					Toast.makeText(getActivity(), "short " + buttonID, Toast.LENGTH_SHORT).show();
-					mSM.changeState(PressType.SHORT_PRESS, buttonID);
+					m_Controller.changeState(PressType.SHORT_PRESS, buttonID);
 					return true;
 				} else if(duration >= 2000) { //long press
 					Toast.makeText(getActivity(), "long " + buttonID, Toast.LENGTH_SHORT).show();
-					mSM.changeState(PressType.LONG_PRESS, buttonID);
+					m_Controller.changeState(PressType.LONG_PRESS, buttonID);
 					return true;
 				}
 				//DEBUG
