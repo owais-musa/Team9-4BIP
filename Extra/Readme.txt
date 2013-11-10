@@ -1,0 +1,1 @@
+This directory is to be used for isolated code snippets to be integrated and sample projects.
