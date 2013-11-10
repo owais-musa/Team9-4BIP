@@ -1,5 +1,8 @@
 package il.ac.technion.yptnine.states;
 
+import il.ac.technion.yptnine.controller.Controller;
+
+import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -7,17 +10,17 @@ public class LettersState extends State {
 	
 	private boolean lowerCase = true;
 
-	public LettersState(String abc, boolean lowerCase){
-		if(lowerCase){
+	public LettersState(String[] abc, boolean lCase){
+		if(lCase){
 			for(int i = 0; i < 4; i++){
-				shortPress[i] = Parser.splitEqually(abc, i, 4).toLowerCase(Locale.ENGLISH);
+				shortPress[i] = Parser.findContent(abc, 0, abc.length - 1, i, 4).toLowerCase(Locale.ENGLISH);
 			}
 			lowerCase = true;
 			longPress[3] = "A";
 		}
 		else{
 			for(int i = 0; i < 4; i++){
-				shortPress[i] = Parser.splitEqually(abc, i, 4).toUpperCase(Locale.ENGLISH);
+				shortPress[i] = Parser.findContent(abc, 0, abc.length - 1, i, 4).toUpperCase(Locale.ENGLISH);
 			}
 			lowerCase = false;
 			longPress[3] = "a";
@@ -59,11 +62,13 @@ public class LettersState extends State {
 			return this;
 		}
 		else if(size == 1){
-			// Owais: message.add(shortPress[i][0]);
+			Controller.m_Message.InsertChar(shortPress[i-1].charAt(0));
 			return new KeyboardState();
 		}
-		else
-			return new LettersState(shortPress[i-1], lowerCase);
+		else{
+			String [] choosenItems = shortPress[i-1].split(" ");
+			return new LettersState(choosenItems, lowerCase);
+		}
 	}
 
 	// Back
@@ -90,13 +95,22 @@ public class LettersState extends State {
 	@Override
 	public State onLong4Press() {
 		lowerCase = !lowerCase;
-		String content = "";
+		ArrayList<String> content = new ArrayList<String>();
 		
 		for(int i = 0; i < 4; i++){
-			content += shortPress[i];
+			String [] temp = shortPress[i].split(" ");
+			for(int j = 0; j < temp.length; j++){
+				content.add(temp[j]);
+			}
 		}
 		
-		return new LettersState(content, lowerCase);
+		String[] items = new String[content.size()];
+		
+		for(int i = 0; i < content.size(); i++){
+			items[i] = content.get(i);
+		}
+		
+		return new LettersState(items, lowerCase);
 	}
 
 }

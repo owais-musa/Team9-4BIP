@@ -1,18 +1,20 @@
 package il.ac.technion.yptnine.states;
 
+import il.ac.technion.yptnine.controller.Controller;
+
+
 public class SymbolsState extends State {
 	
-	public SymbolsState(String symbols, boolean levelOne){
-		
+	public SymbolsState(String[] symbols, boolean levelOne){
 		if(levelOne){
-			shortPress[0] = symbols.substring(0, 4);
-			shortPress[1] = Parser.splitEqually(symbols + 4, 0, 3);
-			shortPress[1] = Parser.splitEqually(symbols + 4, 1, 3);
-			shortPress[1] = Parser.splitEqually(symbols + 4, 2, 3);
+			shortPress[0] = Parser.findHighPrioContent(symbols, 0, 3);
+			shortPress[1] = Parser.findContent(symbols, 4, symbols.length - 1, 0, 3); 
+			shortPress[2] = Parser.findContent(symbols, 4, symbols.length - 1, 1, 3);
+			shortPress[3] = Parser.findContent(symbols, 4, symbols.length - 1, 2, 3);
 		}
 		else{
 			for(int i = 0; i < 4; i++){
-				shortPress[i] = Parser.splitEqually(symbols, i, 4);
+				shortPress[i] = Parser.findContent(symbols, 0, symbols.length - 1, i, 4);
 			}
 		}
 		
@@ -29,21 +31,21 @@ public class SymbolsState extends State {
 
 	@Override
 	public State onShort2Press() {
-		return shortOpLogic(1);
+		return shortOpLogic(2);
 	}
 
 	@Override
 	public State onShort3Press() {
-		return shortOpLogic(1);
+		return shortOpLogic(3);
 	}
 
 	@Override
 	public State onShort4Press() {
-		return shortOpLogic(1);
+		return shortOpLogic(4);
 	}
 	
 	public State shortOpLogic(int i){
-		int size = shortPress[i-1].length(); 
+		int size = shortPress[i-1].split(" ").length; 
 		if(size == 0){
 			/* In case some of the windows are empty.
 			 * For example: having 3 numbers to be shown on 4 windows.
@@ -52,11 +54,16 @@ public class SymbolsState extends State {
 			return this;
 		}
 		else if(size == 1){
-			// Owais: message.add(shortPress[i][0]);
+			if (shortPress[i-1].equals("space"))
+				Controller.m_Message.InsertChar(' ');
+			else
+				Controller.m_Message.InsertChar(shortPress[i-1].charAt(0));
 			return new KeyboardState();
 		}
-		else
-			return new SymbolsState(shortPress[i-1], false);
+		else{
+			String [] choosenItems = shortPress[i-1].split(" ");
+			return new SymbolsState(choosenItems, false);
+		}
 	}
 
 	// Back
@@ -68,8 +75,7 @@ public class SymbolsState extends State {
 	// :-)
 	@Override
 	public State onLong2Press() {
-		// Smileys are NOT supported in the first iteration.
-		return this;
+		return new SmileysState(KeyboardState.smileys);
 	}
 
 	// UNUSED

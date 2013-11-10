@@ -19,24 +19,30 @@ public class TextController {
 	}
 	
 	public TextController(){
-		m_rgText = new ArrayList<Character>(1);
-		//m_rgText.set(0, ' ');
+		m_rgText = new ArrayList<Character>();
 		m_iCursorPossition = 0;
 	}
 	
-	public void InsertChar(char in_NewChar) {
-		assert(m_iCursorPossition >= 0 && m_iCursorPossition < m_rgText.size());
+	public void InsertChars(String in_NewString){
+		assert(m_iCursorPossition >= 0 && m_iCursorPossition <= m_rgText.size());
 		SaveData();
 		
-		m_rgText.set(m_iCursorPossition, in_NewChar);
-		
-		if (m_iCursorPossition == m_rgText.size() - 1){
-			m_rgText.add(' ');
+		for (int i=0; i<in_NewString.length(); i++){
+			m_rgText.add(m_iCursorPossition, in_NewString.charAt(i));
+			m_iCursorPossition++;
 		}
 	}
 	
+	public void InsertChar(char in_NewChar) {
+		assert(m_iCursorPossition >= 0 && m_iCursorPossition <= m_rgText.size());
+		SaveData();
+		
+		m_rgText.add(m_iCursorPossition, in_NewChar);
+		m_iCursorPossition++;
+	}
+	
 	public void DeletetChar() {
-		assert(m_iCursorPossition >= 0 && m_iCursorPossition < m_rgText.size());
+		assert(m_iCursorPossition >= 0 && m_iCursorPossition <= m_rgText.size());
 		SaveData();
 		
 		if (m_iCursorPossition == 0){
@@ -44,13 +50,14 @@ public class TextController {
 		}
 		
 		m_rgText.remove(m_iCursorPossition - 1);
+		m_iCursorPossition--;
 	}
 	
 	public void MoveCurserToTheRight() {
-		assert(m_iCursorPossition >= 0 && m_iCursorPossition < m_rgText.size());
+		assert(m_iCursorPossition >= 0 && m_iCursorPossition <= m_rgText.size());
 		SaveData();
 		
-		if (m_iCursorPossition == m_rgText.size() - 1){
+		if (m_iCursorPossition == m_rgText.size()){
 			return;
 		}
 		
@@ -58,7 +65,7 @@ public class TextController {
 	}
 	
 	public void MoveCurserToTheLeft() {
-		assert(m_iCursorPossition >= 0 && m_iCursorPossition < m_rgText.size());
+		assert(m_iCursorPossition >= 0 && m_iCursorPossition <= m_rgText.size());
 		SaveData();
 		
 		if (m_iCursorPossition == 0){
@@ -71,7 +78,6 @@ public class TextController {
 	public void DeleteAll() {
 		SaveData();
 		m_rgText = new ArrayList<Character>(1);
-		m_rgText.set(1, ' ');
 		m_iCursorPossition = 0;
 	}
 	
@@ -91,7 +97,13 @@ public class TextController {
 	}
 	
 	public String GetText(){
-		return m_rgText.toString();
+		String Str = new String();
+		
+		for (int i=0; i<m_rgText.size(); i++){
+			Str += m_rgText.get(i);
+		}
+		
+		return Str;
 	}	
 	
 }

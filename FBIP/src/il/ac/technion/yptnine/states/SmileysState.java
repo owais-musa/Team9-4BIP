@@ -2,17 +2,17 @@ package il.ac.technion.yptnine.states;
 
 import il.ac.technion.yptnine.controller.Controller;
 
+public class SmileysState extends State {
 
-public class NumbersState extends State {
-	
-	public NumbersState(String[] numbers){
-		for(int i = 0; i < 4; i++){
-			shortPress[i] = Parser.findContent(numbers, 0, numbers.length - 1, i, 4);
+	public SmileysState(String[] smileys) {
+		for (int i = 0; i < 4; i++) {
+			shortPress[i] = Parser.findContent(smileys, 0, smileys.length - 1,
+					i, 4);
 		}
-		
+
 		longPress[0] = "Back";
 		longPress[1] = "UNUSED";
-		longPress[2] = "Lang";
+		longPress[2] = "UNUSED";
 		longPress[3] = "UNUSED";
 	}
 
@@ -35,23 +35,22 @@ public class NumbersState extends State {
 	public State onShort4Press() {
 		return shortOpLogic(4);
 	}
-	
-	public State shortOpLogic(int i){
-		int size = shortPress[i-1].length(); 
-		if(size == 0){
-			/* In case some of the windows are empty.
-			 * For example: having 3 numbers to be shown on 4 windows.
-			 * I solved the issue by remaining in the same state.
+
+	public State shortOpLogic(int i) {
+		int size = shortPress[i - 1].split(" ").length;
+		if (size == 0) {
+			/*
+			 * In case some of the windows are empty. For example: having 3
+			 * numbers to be shown on 4 windows. I solved the issue by remaining
+			 * in the same state.
 			 */
 			return this;
-		}
-		else if(size == 1){
-			Controller.m_Message.InsertChar(shortPress[i-1].charAt(0));
+		} else if (size == 1) {
+			Controller.m_Message.InsertChars(shortPress[i-1]);
 			return new KeyboardState();
-		}
-		else{
-			String [] choosenItems = shortPress[i-1].split(" ");
-			return new NumbersState(choosenItems);
+		} else {
+			String[] choosenItems = shortPress[i - 1].split(" ");
+			return new SmileysState(choosenItems);
 		}
 	}
 
@@ -68,13 +67,10 @@ public class NumbersState extends State {
 		return this;
 	}
 
-	// Lang
+	// UNUSED
 	@Override
 	public State onLong3Press() {
-		/*
-		 * The format used for numbers in the first iteration is the regular one.
-		 * We will support more formats in the next iterations.
-		 */
+		// Button is UNUSED in the first iteration
 		return this;
 	}
 
@@ -84,5 +80,4 @@ public class NumbersState extends State {
 		// Button is UNUSED in the first iteration
 		return this;
 	}
-
 }

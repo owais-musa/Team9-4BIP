@@ -62,7 +62,7 @@ public class MainState extends State {
 		 *            No backup/other operations are done.
 		 */
 		System.exit(0);
-		return null;
+		return this;
 		
 	}
 
@@ -72,7 +72,7 @@ public class MainState extends State {
 		/*
 		 * To be Integrated with Daniel's part.
 		 */
-		return null;
+		return this;
 		
 	}
 

@@ -18,13 +18,17 @@ public class Controller implements Serializable{
 
 	static public TextController m_Message = new TextController();
 	
-	private MainActivity m_MainActivity;
-	private State m_CurrentState;
+	static private MainActivity m_MainActivity;
+	static private State m_CurrentState;
 	
 	public Controller(MainActivity in_MainActivity){
 		m_MainActivity = in_MainActivity;
 		m_CurrentState = new MainState();
 	}
+	
+	
+	// Temp solution for the bug of the upper fragment disappearance 
+	boolean m_fAccessedMessageFragment = true;
 	
 	public void DisplayState(State m_State) {
 		assert(m_State != null);
@@ -33,7 +37,13 @@ public class Controller implements Serializable{
 		
 		m_MainActivity.setShortPressInfo(m_CurrentState.shortPress);
 		m_MainActivity.setLongPressInfo(m_CurrentState.longPress);
-		m_MainActivity.setBodyFragment(BodyFragment.MESSAGE_FRAG);
+		if (m_fAccessedMessageFragment == true){
+			m_fAccessedMessageFragment = false;
+			m_MainActivity.setBodyFragment(BodyFragment.MESSAGE_FRAG);
+		}
+
+		m_MainActivity.UpdateMessage(m_Message.GetText()
+				, m_Message.GetCursorPossition());
 		m_MainActivity.updateDisplay();
 	}
 
@@ -76,6 +86,10 @@ public class Controller implements Serializable{
 		}
 		
 		DisplayState(NextState);
+	}
+	
+	static public void sendSMS(){
+		m_MainActivity.sendSMS(m_Message.GetText(), "0526225366");
 	}
 	
 	public void changeState(PressType type, PressID id) {

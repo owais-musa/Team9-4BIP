@@ -1,12 +1,14 @@
 package il.ac.technion.yptnine.states;
 
+import il.ac.technion.yptnine.controller.Controller;
+
 public class OperationsState extends State {
 	
 	public OperationsState(){
 		shortPress[0] = "Delete";
 		shortPress[1] = "Delete All";
 		shortPress[2] = "New Line";
-		shortPress[3] = "Restore Previous";
+		shortPress[3] = "Undo";
 		
 		longPress[0] = "Back";
 		longPress[1] = "UNUSED";
@@ -17,14 +19,14 @@ public class OperationsState extends State {
 	// Delete
 	@Override
 	public State onShort1Press() {
-		// Owais: message.delete();
+		Controller.m_Message.DeletetChar();
 		return new KeyboardState();
 	}
 
 	// Delete All
 	@Override
 	public State onShort2Press() {
-		// Owais: message.deleteAll();
+		Controller.m_Message.DeleteAll();
 		return new KeyboardState();
 	}
 
@@ -38,7 +40,7 @@ public class OperationsState extends State {
 	// Restore Previous
 	@Override
 	public State onShort4Press() {
-		// Owais: message.restorePrevious();
+		Controller.m_Message.UndoLastOp();
 		return new KeyboardState();
 	}
 
