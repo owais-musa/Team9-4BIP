@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="il.ac.technion.yptnine.fbip"
+	package="il.ac.technion.cs.ssdl.cs234311.yp09.fbip"
 	android:versionCode="1"
 	android:versionName="1.0" >
 

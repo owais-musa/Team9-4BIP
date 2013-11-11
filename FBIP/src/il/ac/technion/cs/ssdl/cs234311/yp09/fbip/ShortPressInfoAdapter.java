@@ -1,6 +1,6 @@
 package il.ac.technion.cs.ssdl.cs234311.yp09.fbip;
 
-import il.ac.technion.yptnine.fbip.R;
+import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.R;
 
 import android.content.Context;
 import android.util.Log;

@@ -1,7 +1,7 @@
 package il.ac.technion.cs.ssdl.cs234311.yp09.fbip;
 
 import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
-import il.ac.technion.yptnine.fbip.R;
+import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.R;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
