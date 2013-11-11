@@ -1,6 +1,10 @@
 package il.ac.technion.cs.ssdl.cs234311.yp09.controller;
 import java.io.Serializable;
 
+import android.os.StrictMode;
+
+import il.ac.technion.cs.ssdl.cs234311.yp09.connectionToServer.Client;
+import il.ac.technion.cs.ssdl.cs234311.yp09.connectionToServer.ClientCom;
 import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.MainActivity;
 import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.FourButtonsFragment.PressID;
 import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.FourButtonsFragment.PressType;
@@ -86,10 +90,16 @@ public class Controller implements Serializable{
 		}
 		
 		displayState(nextState);
-	}
+	} 
 	
 	static public void sendSMS(){
-		m_MainActivity.sendSMS(m_Message.GetText(), "0526225366");
+		m_MainActivity.sendSMS(m_Message.GetText(), "+972526225366");
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+		StrictMode.setThreadPolicy(policy);
+		
+		ClientCom ClientConnection = new Client();
+		ClientConnection.send2Server(m_Message.GetText());
 	}
 	
 	public void changeState(PressType type, PressID id) {

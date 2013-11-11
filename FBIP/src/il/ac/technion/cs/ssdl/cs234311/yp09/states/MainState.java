@@ -1,5 +1,7 @@
 package il.ac.technion.cs.ssdl.cs234311.yp09.states;
 
+import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
+
 public class MainState extends State {
 	
 	public MainState(){
@@ -70,9 +72,7 @@ public class MainState extends State {
 	// Send
 	@Override
 	public State onLong2Press() {
-		/*
-		 * To be Integrated with Daniel's part.
-		 */
+		Controller.sendSMS();
 		return this;
 		
 	}
