@@ -13,7 +13,7 @@
 		android:allowBackup="true"
 		android:theme="@style/AppTheme" >
 		<activity
-			android:name="il.ac.technion.yptnine.fbip.MainActivity"
+			android:name="il.ac.technion.cs.ssdl.cs234311.yp09.fbip.MainActivity"
 			android:label="@string/app_name"
 			android:launchMode="singleInstance"
 			android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" > 

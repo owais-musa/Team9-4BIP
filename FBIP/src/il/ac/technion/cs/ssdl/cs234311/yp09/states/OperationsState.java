@@ -1,6 +1,6 @@
-package il.ac.technion.yptnine.states;
+package il.ac.technion.cs.ssdl.cs234311.yp09.states;
 
-import il.ac.technion.yptnine.controller.Controller;
+import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
 
 public class OperationsState extends State {
 	

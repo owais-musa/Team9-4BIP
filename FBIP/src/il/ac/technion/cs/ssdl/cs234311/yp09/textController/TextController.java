@@ -1,4 +1,4 @@
-package il.ac.technion.yptnine.textControllerPackage;
+package il.ac.technion.cs.ssdl.cs234311.yp09.textController;
 
 
 import java.util.ArrayList;
