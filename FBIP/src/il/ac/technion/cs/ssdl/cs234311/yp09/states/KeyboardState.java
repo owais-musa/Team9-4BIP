@@ -20,7 +20,6 @@ public class KeyboardState extends State {
 	public static String[] smileys = {":)", ":(", ";)", ":D", 
 		                              ":p", ":-)", ":-(", ":|"};
 	
-	
 	public KeyboardState(){
 		shortPress[0] = "Letters";
 		shortPress[1] = "Numbers";

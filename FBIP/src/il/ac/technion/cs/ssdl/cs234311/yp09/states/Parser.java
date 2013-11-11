@@ -22,8 +22,7 @@ public class Parser {
 	    }
 	    if(index + 1 > content.size())
 	    	return new ArrayList<String>();
-	    else
-	    	return content.get(index);
+	    return content.get(index);
 	}
 	/*
 	public static String arrayListToString(ArrayList<String> arr){

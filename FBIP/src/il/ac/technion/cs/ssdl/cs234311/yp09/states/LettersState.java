@@ -54,7 +54,7 @@ public class LettersState extends State {
 	
 	public State shortOpLogic(int i){
 		int size = shortPress[i-1].length(); 
-		if(size == 0){
+		if(shortPress[i-1].equals("")){
 			/* In case some of the windows are empty.
 			 * For example: having 3 letters to be shown on 4 windows.
 			 * I solved the issue by remaining in the same state.
