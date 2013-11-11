@@ -2,8 +2,6 @@ package il.ac.technion.cs.ssdl.cs234311.yp09.states;
 
 import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
 
-// temp
-
 public class KeyboardState extends State {
 	
 	public static String[] abc = {"a", "b", "c", "d", "e", "f", "g", 
@@ -21,8 +19,6 @@ public class KeyboardState extends State {
 									  "\\", "|", "'" };
 	public static String[] smileys = {":)", ":(", ";)", ":D", 
 		                              ":p", ":-)", ":-(", ":|"};
-	
-	// watad
 	
 	public KeyboardState(){
 		shortPress[0] = "Letters";
