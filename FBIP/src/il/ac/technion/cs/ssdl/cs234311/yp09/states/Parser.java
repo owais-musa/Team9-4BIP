@@ -24,15 +24,7 @@ public class Parser {
 	    	return new ArrayList<String>();
 	    return content.get(index);
 	}
-	/*
-	public static String arrayListToString(ArrayList<String> arr){
-		String res = "";
-		for(int i = 0; i < arr.size(); i++){
-			res += arr.get(i);
-		}
-		return res;
-	}
-	*/
+	
 	public static String addSpaces(String[] items) {
 		String str = "";
 		
