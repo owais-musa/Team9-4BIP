@@ -61,6 +61,7 @@ public class MainState extends State {
 		 *            Meanwhile we just exit the application.
 		 *            No backup/other operations are done.
 		 */
+		//TODO: consider a better way of exiting the app (calling destroy() on the activity for instance)
 		System.exit(0);
 		return this;
 		

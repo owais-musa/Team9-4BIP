@@ -20,7 +20,7 @@
         android:layout_gravity="left|top"
         android:layout_row="0"
         android:ems="10"
-        android:inputType="textAutoComplete" >
+        android:inputType="none" >
 
         <requestFocus />
     </EditText>
@@ -45,6 +45,6 @@
         android:layout_gravity="left|top"
         android:layout_row="3"
         android:ems="10"
-        android:inputType="textMultiLine" />    
+        android:inputType="none" />    
 
 </GridLayout>

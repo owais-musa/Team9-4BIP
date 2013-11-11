@@ -30,7 +30,7 @@ public class Controller implements Serializable{
 	// Temp solution for the bug of the upper fragment disappearance 
 	boolean m_fAccessedMessageFragment = true;
 	
-	public void DisplayState(State m_State) {
+	public void displayState(State m_State) {
 		assert(m_State != null);
 		
 		m_CurrentState = m_State;
@@ -47,37 +47,37 @@ public class Controller implements Serializable{
 		m_MainActivity.updateDisplay();
 	}
 
-	public void Start() {
-		DisplayState(m_CurrentState);
+	public void start() {
+		displayState(m_CurrentState);
 	}
 	
-	public void ClickOn(ControllerPressType in_pressType){
-		State NextState = null;
+	public void clickOn(ControllerPressType in_pressType){
+		State nextState = null;
 		
 		switch (in_pressType) {
 		case SHORT_PRESS1:
-			NextState = m_CurrentState.onShort1Press();
+			nextState = m_CurrentState.onShort1Press();
 			break;
 		case SHORT_PRESS2:
-			NextState = m_CurrentState.onShort2Press();
+			nextState = m_CurrentState.onShort2Press();
 			break;
 		case SHORT_PRESS3:
-			NextState = m_CurrentState.onShort3Press();
+			nextState = m_CurrentState.onShort3Press();
 			break;
 		case SHORT_PRESS4:
-			NextState = m_CurrentState.onShort4Press();
+			nextState = m_CurrentState.onShort4Press();
 			break;
 		case LONG_PRESS1:
-			NextState = m_CurrentState.onLong1Press();
+			nextState = m_CurrentState.onLong1Press();
 			break;
 		case LONG_PRESS2:
-			NextState = m_CurrentState.onLong2Press();
+			nextState = m_CurrentState.onLong2Press();
 			break;
 		case LONG_PRESS3:
-			NextState = m_CurrentState.onLong3Press();
+			nextState = m_CurrentState.onLong3Press();
 			break;
 		case LONG_PRESS4:
-			NextState = m_CurrentState.onLong4Press();
+			nextState = m_CurrentState.onLong4Press();
 			break;	
 
 		default:
@@ -85,7 +85,7 @@ public class Controller implements Serializable{
 			break;
 		}
 		
-		DisplayState(NextState);
+		displayState(nextState);
 	}
 	
 	static public void sendSMS(){
@@ -97,16 +97,16 @@ public class Controller implements Serializable{
 		case LONG_PRESS:
 			switch (id){
 			case BLUE_PRESS:
-				ClickOn(ControllerPressType.LONG_PRESS1);
+				clickOn(ControllerPressType.LONG_PRESS1);
 				break;
 			case YELLOW_PRESS:
-				ClickOn(ControllerPressType.LONG_PRESS2);
+				clickOn(ControllerPressType.LONG_PRESS2);
 				break;
 			case GREEN_PRESS:
-				ClickOn(ControllerPressType.LONG_PRESS3);
+				clickOn(ControllerPressType.LONG_PRESS3);
 				break;
 			case RED_PRESS:
-				ClickOn(ControllerPressType.LONG_PRESS4);
+				clickOn(ControllerPressType.LONG_PRESS4);
 				break;
 			default:
 				assert(false);	
@@ -115,16 +115,16 @@ public class Controller implements Serializable{
 		case SHORT_PRESS:
 			switch (id){
 			case BLUE_PRESS:
-				ClickOn(ControllerPressType.SHORT_PRESS1);
+				clickOn(ControllerPressType.SHORT_PRESS1);
 				break;
 			case YELLOW_PRESS:
-				ClickOn(ControllerPressType.SHORT_PRESS2);
+				clickOn(ControllerPressType.SHORT_PRESS2);
 				break;
 			case GREEN_PRESS:
-				ClickOn(ControllerPressType.SHORT_PRESS3);
+				clickOn(ControllerPressType.SHORT_PRESS3);
 				break;
 			case RED_PRESS:
-				ClickOn(ControllerPressType.SHORT_PRESS4);
+				clickOn(ControllerPressType.SHORT_PRESS4);
 				break;
 			default:
 				assert(false);	

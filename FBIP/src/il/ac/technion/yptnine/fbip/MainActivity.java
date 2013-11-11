@@ -8,6 +8,8 @@ import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.app.Activity;
@@ -42,6 +44,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		Log.d("MAIN", "setting view");
 		setContentView(R.layout.activity_main);
 
@@ -65,15 +68,15 @@ public class MainActivity extends Activity {
 		getFragmentManager().beginTransaction()
 		        .add(R.id.buttons_frame, buttonsFrag).commit();
 
-		m_Controller.Start();
+		m_Controller.start();
 	}
 
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
-	}
+	}*/
 
 	public void setShortPressInfo(String[] shortText) {
 		Bundle args = new Bundle();
