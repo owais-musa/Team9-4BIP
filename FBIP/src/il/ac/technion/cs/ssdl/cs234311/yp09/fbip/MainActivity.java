@@ -1,9 +1,13 @@
 package il.ac.technion.cs.ssdl.cs234311.yp09.fbip;
 
+import java.io.Serializable;
+
 import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
 import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.R;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -11,6 +15,7 @@ import android.view.Menu;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -29,6 +34,8 @@ public class MainActivity extends Activity {
 		PROTOCOL_FRAG,
 		SETTINGS_FRAG;
 	}
+	public static enum Color { BLUE, YELLOW, GREEN, RED };
+		
 	private Controller m_Controller;
 
 	private LongPressInfoFragment longFrag;
@@ -41,9 +48,29 @@ public class MainActivity extends Activity {
 	private ShortPressInfoFragment shortFrag;
 	private FourButtonsFragment buttonsFrag;
 
+	class SerialHandler extends Handler implements Serializable {
+        private static final long serialVersionUID = 8484722986747130474L;
+        @Override
+		public void handleMessage(Message msg) {
+			Bundle bundle = msg.getData();
+			String type = bundle.getString("type");
+			Log.d("MAIN", "Type: " + type);
+			int id = bundle.getInt("id");
+			Log.d("MAIN", "ID: " + id);
+			int color = bundle.getBoolean("emphasize") ? getResources().getColor(R.color.black) : getResources().getColor(R.color.white);
+			Log.d("MAIN", "Color: " + color);
+			if(type.equals("SHORT_PRESS"))
+				getShortTextView(Color.values()[id]).setTextColor(color);
+			else if(type.equals("LONG_PRESS"))
+				getLongTextView(Color.values()[id]).setTextColor(color);
+		}
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//register handler
+		SerialHandler handler = new SerialHandler();
 		
 		Log.d("MAIN", "setting view");
 		setContentView(R.layout.activity_main);
@@ -64,7 +91,7 @@ public class MainActivity extends Activity {
 		getFragmentManager().beginTransaction()
 		        .add(R.id.short_press_info_frame, shortFrag).commit();
 
-		buttonsFrag = FourButtonsFragment.newInstance(m_Controller);
+		buttonsFrag = FourButtonsFragment.newInstance(m_Controller, handler);
 		getFragmentManager().beginTransaction()
 		        .add(R.id.buttons_frame, buttonsFrag).commit();
 
@@ -206,4 +233,22 @@ public class MainActivity extends Activity {
         getContentResolver().insert(Uri.parse("content://sms/sent"), values);
     }
 	
+    protected TextView getLongTextView(Color c) {
+    	switch(c) {
+    	case BLUE:
+    		return (TextView) findViewById(R.id.blue_text);
+    	case YELLOW:
+    		return (TextView) findViewById(R.id.yellow_text);
+    	case GREEN:
+    		return (TextView) findViewById(R.id.green_text);
+    	case RED:
+    		return (TextView) findViewById(R.id.red_text);
+		default:
+			return null;
+    	}
+    }
+    
+    protected TextView getShortTextView(Color c) {
+    	return shortFrag.getInfoAdapter().getTextView(c.ordinal());
+    }
 }
