@@ -15,6 +15,7 @@ public class ShortPressInfoAdapter extends BaseAdapter implements ListAdapter {
 
 	private Context mContext;
 	private String[] mKeyInfo;
+	private TextView[] texts = new TextView[4];
 	
 	public ShortPressInfoAdapter(String[] data, Context c) {
 		mKeyInfo = data;
@@ -44,7 +45,7 @@ public class ShortPressInfoAdapter extends BaseAdapter implements ListAdapter {
 			Log.d("GRID_VIEW", "inflating");
 			LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = li.inflate(R.layout.grid_item, null);
-			TextView text = (TextView) v.findViewById(R.id.gridItemText);
+			TextView text = texts[position] = (TextView) v.findViewById(R.id.gridItemText);
 			Log.d("GRID_VIEW", "creating view");
 			text.setText(mKeyInfo[position]);
 			text.setTextColor(mContext.getResources().getColor(R.color.white));
@@ -69,4 +70,7 @@ public class ShortPressInfoAdapter extends BaseAdapter implements ListAdapter {
 		return v;
 	}
 
+	protected TextView getTextView(int position) {
+		return texts[position];
+	}
 }

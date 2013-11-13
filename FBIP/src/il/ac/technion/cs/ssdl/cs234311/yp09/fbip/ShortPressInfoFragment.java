@@ -13,6 +13,7 @@ public class ShortPressInfoFragment extends Fragment {
 
 	private String[] mKeyInfo = new String[4];
 
+	private ShortPressInfoAdapter infoAdapter;
 	@Override
 	public void setArguments(Bundle args) {
 		if(args != null)
@@ -26,7 +27,13 @@ public class ShortPressInfoFragment extends Fragment {
         // Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.short_press_info_fragment, container, false);
 		GridView grid = (GridView) view.findViewById(R.id.grid_view);
-		grid.setAdapter(new ShortPressInfoAdapter(mKeyInfo, getActivity()));
+		infoAdapter = new ShortPressInfoAdapter(mKeyInfo, getActivity());
+		grid.setAdapter(infoAdapter);
         return view; 
     }
+	
+	protected ShortPressInfoAdapter getInfoAdapter() {
+		return infoAdapter;
+	}
+	
 }
