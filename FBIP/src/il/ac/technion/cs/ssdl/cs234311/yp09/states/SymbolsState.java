@@ -1,12 +1,10 @@
-package il.ac.technion.cs.ssdl.cs234311.yp09.fbip.states;
+package il.ac.technion.cs.ssdl.cs234311.yp09.states;
 
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.Controller;
+import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
 
 public class SymbolsState extends State {
 
-  public SymbolsState(final Controller c, final String[] symbols,
-      final boolean levelOne) {
-    super(c);
+  public SymbolsState(final String[] symbols, final boolean levelOne) {
     if (levelOne) {
       shortPress[0] = Parser.findHighPrioContent(symbols, 0, 3);
       shortPress[1] = Parser.findContent(symbols, 4, symbols.length - 1, 0, 3);
@@ -54,26 +52,26 @@ public class SymbolsState extends State {
       return this;
     else if (size == 1) {
       if (shortPress[i - 1].equals("space"))
-        Controller.m_Message.insertChar(' ');
+        Controller.m_message.insertChar(' ');
       else
-        Controller.m_Message.insertChar(shortPress[i - 1].charAt(0));
-      return new KeyboardState(mController);
+        Controller.m_message.insertChar(shortPress[i - 1].charAt(0));
+      return new KeyboardState();
     } else {
       final String[] choosenItems = shortPress[i - 1].split(" ");
-      return new SymbolsState(mController, choosenItems, false);
+      return new SymbolsState(choosenItems, false);
     }
   }
 
   // Back
   @Override
   public State onLong1Press() {
-    return new KeyboardState(mController);
+    return new KeyboardState();
   }
 
   // :-)
   @Override
   public State onLong2Press() {
-    return new SmileysState(mController, KeyboardState.smileys);
+    return new SmileysState(KeyboardState.smileys);
   }
 
   // UNUSED

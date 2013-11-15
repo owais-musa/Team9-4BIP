@@ -1,6 +1,6 @@
-package il.ac.technion.cs.ssdl.cs234311.yp09.fbip.states;
+package il.ac.technion.cs.ssdl.cs234311.yp09.states;
 
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.Controller;
+import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
 
 public class KeyboardState extends State {
 
@@ -15,8 +15,7 @@ public class KeyboardState extends State {
   public static String[] smileys = { ":)", ":(", ";)", ":D", ":p", ":-)",
       ":-(", ":|" };
 
-  public KeyboardState(final Controller c) {
-    super(c);
+  public KeyboardState() {
     shortPress[0] = "Letters";
     shortPress[1] = "Numbers";
     shortPress[2] = "Symbols";
@@ -31,51 +30,51 @@ public class KeyboardState extends State {
   // Letters
   @Override
   public State onShort1Press() {
-    return new LettersState(mController, abc, true);
+    return new LettersState(abc, true);
   }
 
   // Numbers
   @Override
   public State onShort2Press() {
-    return new NumbersState(mController, numbers);
+    return new NumbersState(numbers);
   }
 
   // Symbols
   @Override
   public State onShort3Press() {
-    return new SymbolsState(mController, symbols, true);
+    return new SymbolsState(symbols, true);
   }
 
   // Operations
   @Override
   public State onShort4Press() {
-    return new OperationsState(mController);
+    return new OperationsState();
   }
 
   // Back
   @Override
   public State onLong1Press() {
-    return new MainState(mController);
+    return new MainState();
   }
 
   // Done
   @Override
   public State onLong2Press() {
     // OWAIS : message.done();
-    return new MainState(mController);
+    return new MainState();
   }
 
   // <--
   @Override
   public State onLong3Press() {
-    Controller.m_Message.moveCurserToTheLeft();
+    Controller.m_message.moveCurserToTheLeft();
     return this;
   }
 
   // -->
   @Override
   public State onLong4Press() {
-    Controller.m_Message.moveCurserToTheRight();
+    Controller.m_message.moveCurserToTheRight();
     return this;
   }
 

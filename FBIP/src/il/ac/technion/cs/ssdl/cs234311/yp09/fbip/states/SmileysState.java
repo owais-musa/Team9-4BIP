@@ -4,8 +4,8 @@ import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.Controller;
 
 public class SmileysState extends State {
 
-	public SmileysState(Controller c, final String[] smileys) {
-	  super(c);
+  public SmileysState(final Controller c, final String[] smileys) {
+    super(c);
     for (int i = 0; i < 4; i++)
       shortPress[i] = Parser.findContent(smileys, 0, smileys.length - 1, i, 4);
 
@@ -45,18 +45,18 @@ public class SmileysState extends State {
        */
       return this;
     else if (size == 1) {
-      Controller.m_message.insertChars(shortPress[i - 1]);
-			return new KeyboardState(mController);
+      Controller.m_Message.insertChars(shortPress[i - 1]);
+      return new KeyboardState(mController);
     } else {
       final String[] choosenItems = shortPress[i - 1].split(" ");
-			return new SmileysState(mController, choosenItems);
+      return new SmileysState(mController, choosenItems);
     }
   }
 
   // Back
   @Override
   public State onLong1Press() {
-		return new KeyboardState(mController);
+    return new KeyboardState(mController);
   }
 
   // UNUSED

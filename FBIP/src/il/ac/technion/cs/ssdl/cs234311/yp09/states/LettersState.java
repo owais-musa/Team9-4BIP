@@ -1,6 +1,6 @@
-package il.ac.technion.cs.ssdl.cs234311.yp09.fbip.states;
+package il.ac.technion.cs.ssdl.cs234311.yp09.states;
 
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.Controller;
+import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -9,9 +9,7 @@ public class LettersState extends State {
 
   private boolean lowerCase = true;
 
-  public LettersState(final Controller c, final String[] abc,
-      final boolean lCase) {
-    super(c);
+  public LettersState(final String[] abc, final boolean lCase) {
     if (lCase) {
       for (int i = 0; i < 4; i++)
         shortPress[i] = Parser.findContent(abc, 0, abc.length - 1, i, 4)
@@ -62,18 +60,18 @@ public class LettersState extends State {
        */
       return this;
     else if (size == 1) {
-      Controller.m_Message.insertChar(shortPress[i - 1].charAt(0));
-      return new KeyboardState(mController);
+      Controller.m_message.insertChar(shortPress[i - 1].charAt(0));
+      return new KeyboardState();
     } else {
       final String[] choosenItems = shortPress[i - 1].split(" ");
-      return new LettersState(mController, choosenItems, lowerCase);
+      return new LettersState(choosenItems, lowerCase);
     }
   }
 
   // Back
   @Override
   public State onLong1Press() {
-    return new KeyboardState(mController);
+    return new KeyboardState();
   }
 
   // UNUSED
@@ -107,7 +105,7 @@ public class LettersState extends State {
     for (int i = 0; i < content.size(); i++)
       items[i] = content.get(i);
 
-    return new LettersState(mController, items, lowerCase);
+    return new LettersState(items, lowerCase);
   }
 
 }

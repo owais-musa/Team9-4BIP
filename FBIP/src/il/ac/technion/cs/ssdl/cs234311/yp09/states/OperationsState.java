@@ -1,11 +1,10 @@
-package il.ac.technion.cs.ssdl.cs234311.yp09.fbip.states;
+package il.ac.technion.cs.ssdl.cs234311.yp09.states;
 
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.Controller;
+import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
 
 public class OperationsState extends State {
 
-  public OperationsState(final Controller c) {
-    super(c);
+  public OperationsState() {
     shortPress[0] = "Delete";
     shortPress[1] = "Delete All";
     shortPress[2] = "New Line";
@@ -20,35 +19,35 @@ public class OperationsState extends State {
   // Delete
   @Override
   public State onShort1Press() {
-    Controller.m_Message.deletetChar();
-    return new KeyboardState(mController);
+    Controller.m_message.deletetChar();
+    return new KeyboardState();
   }
 
   // Delete All
   @Override
   public State onShort2Press() {
-    Controller.m_Message.deleteAll();
-    return new KeyboardState(mController);
+    Controller.m_message.deleteAll();
+    return new KeyboardState();
   }
 
   // New Line
   @Override
   public State onShort3Press() {
     // Owais: message.newLine();
-    return new KeyboardState(mController);
+    return new KeyboardState();
   }
 
   // Restore Previous
   @Override
   public State onShort4Press() {
-    Controller.m_Message.undoLastOp();
-    return new KeyboardState(mController);
+    Controller.m_message.undoLastOp();
+    return new KeyboardState();
   }
 
   // Back
   @Override
   public State onLong1Press() {
-    return new KeyboardState(mController);
+    return new KeyboardState();
   }
 
   // UNUSED
