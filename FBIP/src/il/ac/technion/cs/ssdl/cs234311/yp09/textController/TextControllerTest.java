@@ -2,433 +2,424 @@ package il.ac.technion.cs.ssdl.cs234311.yp09.textController;
 
 import junit.framework.TestCase;
 
+/**
+ * Test class for TextController
+ * 
+ * @date 11/10/2013
+ * @email owais.musa@gmail.com
+ * @author Owais Musa
+ * 
+ */
 public class TextControllerTest extends TestCase {
-  static public void testInsertChar() throws Exception {
-    TextController Message = new TextController();
 
-    int iCursorPossition = Message.GetCursorPossition();
-    String MessageText = Message.GetText();
+  /**
+   * Testing the method insertChar
+   */
+  static public void testInsertChar() {
+    final TextController Message = new TextController();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    int iCursorPossition = Message.getCursorPossition();
+    String MessageText = Message.getText();
+
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.InsertChar(' ');
+    Message.insertChar(' ');
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 1 || !MessageText.equals(" ")) {
+    if (iCursorPossition != 1 || !MessageText.equals(" "))
       fail();
-    }
 
-    Message.InsertChar('!');
-    Message.InsertChar('!');
-    Message.InsertChar('t');
-    Message.InsertChar('e');
-    Message.InsertChar('s');
-    Message.InsertChar('t');
-    Message.InsertChar(':');
-    Message.InsertChar(')');
+    Message.insertChar('!');
+    Message.insertChar('!');
+    Message.insertChar('t');
+    Message.insertChar('e');
+    Message.insertChar('s');
+    Message.insertChar('t');
+    Message.insertChar(':');
+    Message.insertChar(')');
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 9 || !MessageText.equals(" !!test:)")) {
+    if (iCursorPossition != 9 || !MessageText.equals(" !!test:)"))
       fail();
-    }
 
-    Message.MoveCurserToTheLeft();
-    Message.MoveCurserToTheLeft();
-    Message.MoveCurserToTheLeft();
+    Message.moveCurserToTheLeft();
+    Message.moveCurserToTheLeft();
+    Message.moveCurserToTheLeft();
 
-    Message.InsertChar(':');
-    Message.InsertChar('(');
+    Message.insertChar(':');
+    Message.insertChar('(');
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 8 || !MessageText.equals(" !!tes:(t:)")) {
+    if (iCursorPossition != 8 || !MessageText.equals(" !!tes:(t:)"))
       fail();
-    }
 
   }
 
-  static public void testInsertChars() throws Exception {
-    TextController Message = new TextController();
+  /**
+   * Testing the method insertChars
+   */
+  static public void testInsertChars() {
+    final TextController Message = new TextController();
 
-    int iCursorPossition = Message.GetCursorPossition();
-    String MessageText = Message.GetText();
+    int iCursorPossition = Message.getCursorPossition();
+    String MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.InsertChars("good test:)");
+    Message.insertChars("good test:)");
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 11 || !MessageText.equals("good test:)")) {
+    if (iCursorPossition != 11 || !MessageText.equals("good test:)"))
       fail();
-    }
 
-    for(int i = 0; i < 5; i++)
-      Message.MoveCurserToTheLeft();
-    Message.InsertChars("!!!!");
+    for (int i = 0; i < 5; i++)
+      Message.moveCurserToTheLeft();
+    Message.insertChars("!!!!");
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 10 || !MessageText.equals("good t!!!!est:)")) {
+    if (iCursorPossition != 10 || !MessageText.equals("good t!!!!est:)"))
       fail();
-    }
   }
 
-  static public void testDeletetChar() throws Exception {
-    TextController Message = new TextController();
+  /**
+   * Testing the method deleteChar
+   */
+  static public void testDeletetChar() {
+    final TextController Message = new TextController();
 
-    int iCursorPossition = Message.GetCursorPossition();
-    String MessageText = Message.GetText();
+    int iCursorPossition = Message.getCursorPossition();
+    String MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.InsertChars("good test:)");
+    Message.insertChars("good test:)");
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 11 || !MessageText.equals("good test:)")) {
+    if (iCursorPossition != 11 || !MessageText.equals("good test:)"))
       fail();
-    }
 
-    for(int i = 0; i < 5; i++)
-      Message.DeletetChar();
+    for (int i = 0; i < 5; i++)
+      Message.deletetChar();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 6 || !MessageText.equals("good t")) {
+    if (iCursorPossition != 6 || !MessageText.equals("good t"))
       fail();
-    }
 
-    for(int i = 0; i < 10; i++)
-      Message.MoveCurserToTheLeft(); // now cursor = 0
+    for (int i = 0; i < 10; i++)
+      Message.moveCurserToTheLeft(); // now cursor = 0
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("good t")) {
+    if (iCursorPossition != 0 || !MessageText.equals("good t"))
       fail();
-    }
 
-    for(int i = 0; i < 5; i++)
-      Message.DeletetChar(); // do nothing!
+    for (int i = 0; i < 5; i++)
+      Message.deletetChar(); // do nothing!
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("good t")) {
+    if (iCursorPossition != 0 || !MessageText.equals("good t"))
       fail();
-    }
 
-    Message.DeleteAll();
+    Message.deleteAll();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    for(int i = 0; i < 5; i++)
-      Message.DeletetChar(); // do nothing!
+    for (int i = 0; i < 5; i++)
+      Message.deletetChar(); // do nothing!
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
   }
 
-  static public void testMoveCurserToTheRightAndLeft() throws Exception {
-    TextController Message = new TextController();
+  /**
+   * Testing the method moveCursorToTheRight and moveCursorToTheLeft
+   */
+  static public void testMoveCurserToTheRightAndLeft() {
+    final TextController Message = new TextController();
 
-    int iCursorPossition = Message.GetCursorPossition();
-    String MessageText = Message.GetText();
+    int iCursorPossition = Message.getCursorPossition();
+    String MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    for(int i = 0; i < 20; i++)
-      Message.MoveCurserToTheRight(); // do nothing!
+    for (int i = 0; i < 20; i++)
+      Message.moveCurserToTheRight(); // do nothing!
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    for(int i = 0; i < 20; i++)
-      Message.MoveCurserToTheLeft(); // do nothing!
+    for (int i = 0; i < 20; i++)
+      Message.moveCurserToTheLeft(); // do nothing!
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.InsertChars("my test!!!");
+    Message.insertChars("my test!!!");
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 10 || !MessageText.equals("my test!!!")) {
+    if (iCursorPossition != 10 || !MessageText.equals("my test!!!"))
       fail();
-    }
 
-    for(int i = 0; i < 20; i++)
-      Message.MoveCurserToTheRight(); // do nothing!
+    for (int i = 0; i < 20; i++)
+      Message.moveCurserToTheRight(); // do nothing!
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 10 || !MessageText.equals("my test!!!")) {
+    if (iCursorPossition != 10 || !MessageText.equals("my test!!!"))
       fail();
-    }
 
-    for(int i = 0; i < 5; i++)
-      Message.MoveCurserToTheLeft();
+    for (int i = 0; i < 5; i++)
+      Message.moveCurserToTheLeft();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 5 || !MessageText.equals("my test!!!")) {
+    if (iCursorPossition != 5 || !MessageText.equals("my test!!!"))
       fail();
-    }
 
-    for(int i = 0; i < 4; i++)
-      Message.MoveCurserToTheRight();
+    for (int i = 0; i < 4; i++)
+      Message.moveCurserToTheRight();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 9 || !MessageText.equals("my test!!!")) {
+    if (iCursorPossition != 9 || !MessageText.equals("my test!!!"))
       fail();
-    }
 
-    for(int i = 0; i < 5; i++)
-      Message.MoveCurserToTheRight();
+    for (int i = 0; i < 5; i++)
+      Message.moveCurserToTheRight();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 10 || !MessageText.equals("my test!!!")) {
+    if (iCursorPossition != 10 || !MessageText.equals("my test!!!"))
       fail();
-    }
 
-    for(int i = 0; i < 50; i++)
-      Message.MoveCurserToTheLeft();
+    for (int i = 0; i < 50; i++)
+      Message.moveCurserToTheLeft();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("my test!!!")) {
+    if (iCursorPossition != 0 || !MessageText.equals("my test!!!"))
       fail();
-    }
 
-    Message.MoveCurserToTheRight();
+    Message.moveCurserToTheRight();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 1 || !MessageText.equals("my test!!!")) {
+    if (iCursorPossition != 1 || !MessageText.equals("my test!!!"))
       fail();
-    }
 
   }
 
-  static public void testDeleteAll() throws Exception {
-    TextController Message = new TextController();
+  /**
+   * Testing the method deleteAll
+   */
+  static public void testDeleteAll() {
+    final TextController Message = new TextController();
 
-    int iCursorPossition = Message.GetCursorPossition();
-    String MessageText = Message.GetText();
+    int iCursorPossition = Message.getCursorPossition();
+    String MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.InsertChars("good test:)");
+    Message.insertChars("good test:)");
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 11 || !MessageText.equals("good test:)")) {
+    if (iCursorPossition != 11 || !MessageText.equals("good test:)"))
       fail();
-    }
 
-    Message.DeleteAll();
+    Message.deleteAll();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    for(int i = 0; i < 5; i++)
-      Message.DeleteAll(); // do nothing!
+    for (int i = 0; i < 5; i++)
+      Message.deleteAll(); // do nothing!
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.InsertChars("interesting test!");
-    for(int i = 0; i < 10; i++)
-      Message.MoveCurserToTheLeft();
+    Message.insertChars("interesting test!");
+    for (int i = 0; i < 10; i++)
+      Message.moveCurserToTheLeft();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 7 || !MessageText.equals("interesting test!")) {
+    if (iCursorPossition != 7 || !MessageText.equals("interesting test!"))
       fail();
-    }
 
-    Message.DeleteAll();
+    Message.deleteAll();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
   }
 
-  static public void testUndoLastOp() throws Exception {
-    TextController Message = new TextController();
+  /**
+   * Testing the method undoLastOp
+   */
+  static public void testUndoLastOp() {
+    final TextController Message = new TextController();
 
-    int iCursorPossition = Message.GetCursorPossition();
-    String MessageText = Message.GetText();
+    int iCursorPossition = Message.getCursorPossition();
+    String MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.UndoLastOp(); // do nothing
+    Message.undoLastOp(); // do nothing
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.InsertChars("interesting test");
+    Message.insertChars("interesting test");
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 16 || !MessageText.equals("interesting test")) {
+    if (iCursorPossition != 16 || !MessageText.equals("interesting test"))
       fail();
-    }
 
-    Message.UndoLastOp();
+    Message.undoLastOp();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.InsertChars("interesting test");
-    for(int i = 0; i < 10; i++)
-      Message.MoveCurserToTheLeft();
+    Message.insertChars("interesting test");
+    for (int i = 0; i < 10; i++)
+      Message.moveCurserToTheLeft();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 6 || !MessageText.equals("interesting test")) {
+    if (iCursorPossition != 6 || !MessageText.equals("interesting test"))
       fail();
-    }
 
-    Message.UndoLastOp();
+    Message.undoLastOp();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 7 || !MessageText.equals("interesting test")) {
+    if (iCursorPossition != 7 || !MessageText.equals("interesting test"))
       fail();
-    }
 
-    Message.DeleteAll();
+    Message.deleteAll();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.UndoLastOp();
+    Message.undoLastOp();
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 7 || !MessageText.equals("interesting test")) {
+    if (iCursorPossition != 7 || !MessageText.equals("interesting test"))
       fail();
-    }
 
   }
 
-  static public void testGetCursorPossition() throws Exception {
-    TextController Message = new TextController();
+  /**
+   * Testing the method getCursorPosition
+   */
+  static public void testGetCursorPosition() {
+    final TextController Message = new TextController();
 
-    int iCursorPossition = Message.GetCursorPossition();
-    String MessageText = Message.GetText();
+    int iCursorPossition = Message.getCursorPossition();
+    String MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.InsertChars("simple test");
+    Message.insertChars("simple test");
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 11 || !MessageText.equals("simple test")) {
+    if (iCursorPossition != 11 || !MessageText.equals("simple test"))
       fail();
-    }
   }
 
-  static public void testGetText() throws Exception {
-    TextController Message = new TextController();
+  /**
+   * Testing the method getText
+   */
+  static public void testGetText() {
+    final TextController Message = new TextController();
 
-    int iCursorPossition = Message.GetCursorPossition();
-    String MessageText = Message.GetText();
+    int iCursorPossition = Message.getCursorPossition();
+    String MessageText = Message.getText();
 
-    if(iCursorPossition != 0 || !MessageText.equals("")) {
+    if (iCursorPossition != 0 || !MessageText.equals(""))
       fail();
-    }
 
-    Message.InsertChars("simple test");
+    Message.insertChars("simple test");
 
-    iCursorPossition = Message.GetCursorPossition();
-    MessageText = Message.GetText();
+    iCursorPossition = Message.getCursorPossition();
+    MessageText = Message.getText();
 
-    if(iCursorPossition != 11 || !MessageText.equals("simple test")) {
+    if (iCursorPossition != 11 || !MessageText.equals("simple test"))
       fail();
-    }
   }
 }
