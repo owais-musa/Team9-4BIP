@@ -1,6 +1,6 @@
-package il.ac.technion.cs.ssdl.cs234311.yp09.fbip.states;
+package il.ac.technion.cs.ssdl.cs234311.yp09.states;
 
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.Controller;
+import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
 import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.ControllerListener.FragmentID;
 
 public class MainState extends State {

@@ -1,9 +1,11 @@
-package il.ac.technion.cs.ssdl.cs234311.yp09.fbip;
+package il.ac.technion.cs.ssdl.cs234311.yp09.controller;
 
 import il.ac.technion.cs.ssdl.cs234311.yp09.connectionToServer.Client;
 import il.ac.technion.cs.ssdl.cs234311.yp09.connectionToServer.ClientCom;
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.states.MainState;
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.states.State;
+import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.ControllerListener;
+import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.FourButtonsListener;
+import il.ac.technion.cs.ssdl.cs234311.yp09.states.MainState;
+import il.ac.technion.cs.ssdl.cs234311.yp09.states.State;
 import il.ac.technion.cs.ssdl.cs234311.yp09.textController.TextController;
 
 import java.io.Serializable;
@@ -11,7 +13,10 @@ import java.io.Serializable;
 import android.os.StrictMode;
 import android.util.Log;
 
-public class Controller implements Serializable, FBListener {
+/**
+ *
+ */
+public class Controller implements Serializable, FourButtonsListener {
   /**
 	 * 
 	 */
@@ -19,19 +24,45 @@ public class Controller implements Serializable, FBListener {
   private ControllerListener mControllerListener;
   private static final String TAG = "CONTROLLER";
 
+  /**
+   *
+   */
   public static enum PressID {
-    BLUE_PRESS, YELLOW_PRESS, GREEN_PRESS, RED_PRESS
+    /**
+     * 
+     */
+    BLUE_PRESS,
+    /**
+     * 
+     */
+    YELLOW_PRESS,
+    /**
+     * 
+     */
+    GREEN_PRESS,
+    /**
+     * 
+     */
+    RED_PRESS
   }
 
+  /**
+   * 
+   */
   static public TextController m_Message = new TextController();
 
-  // static private MainActivity m_MainActivity;
   static private State m_CurrentState;
 
+  /**
+   * @param cl
+   */
   public void setListener(final ControllerListener cl) {
     mControllerListener = cl;
   }
 
+  /**
+   * 
+   */
   public Controller() {
     // m_MainActivity = in_MainActivity;
     m_CurrentState = new MainState(this);
@@ -40,6 +71,9 @@ public class Controller implements Serializable, FBListener {
   // Temp solution for the bug of the upper fragment disappearance
   // boolean m_fAccessedMessageFragment = true;
 
+  /**
+   * @param m_State
+   */
   public void displayState(final State m_State) {
     assert m_State != null;
 
@@ -52,6 +86,9 @@ public class Controller implements Serializable, FBListener {
     mControllerListener.onUpdateDisplay();
   }
 
+  /**
+   * 
+   */
   public void start() {
     displayState(m_CurrentState);
   }
@@ -75,6 +112,9 @@ public class Controller implements Serializable, FBListener {
    * displayState(nextState); }
    */
 
+  /**
+   * 
+   */
   public void sendSMS() {
     mControllerListener.onSendSMS(m_Message.getText(), "+972526225366");
     final StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -163,6 +203,9 @@ public class Controller implements Serializable, FBListener {
     displayState(next);
   }
 
+  /**
+   * @return the listener registered to handle controller requests
+   */
   public ControllerListener getListener() {
     return mControllerListener;
   }

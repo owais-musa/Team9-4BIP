@@ -1,7 +1,15 @@
 package il.ac.technion.cs.ssdl.cs234311.yp09.fbip;
 
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.R;
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.Controller.PressID;
+import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
+import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller.PressID;
+import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -10,23 +18,57 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.app.PendingIntent;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.content.BroadcastReceiver;
-import android.content.IntentFilter;
 
+/**
+ * @author Itamar
+ * 
+ */
 public class MainActivity extends Activity implements ControllerListener {
 
+  /**
+   * @author Itamar
+   * 
+   */
   public static enum BodyFragment {
-    HELP_FRAG, MESSAGE_FRAG, PROTOCOL_FRAG, SETTINGS_FRAG;
+    /**
+     * 
+     */
+    HELP_FRAG,
+    /**
+     * 
+     */
+    MESSAGE_FRAG,
+    /**
+     * 
+     */
+    PROTOCOL_FRAG,
+    /**
+     * 
+     */
+    SETTINGS_FRAG;
   }
 
+  /**
+   * @author Itamar
+   * 
+   */
   public static enum Color {
-    BLUE, YELLOW, GREEN, RED
+    /**
+     * 
+     */
+    BLUE,
+    /**
+     * 
+     */
+    YELLOW,
+    /**
+     * 
+     */
+    GREEN,
+    /**
+     * 
+     */
+    RED
   }
 
   private Controller m_Controller;
@@ -46,16 +88,22 @@ public class MainActivity extends Activity implements ControllerListener {
 
   private static final String TAG = "MAIN";
 
-  public void setShortListener(ActivityListener al) {
+  /**
+   * @param al
+   */
+  public void setShortListener(final ActivityListener al) {
     mShortListener = al;
   }
 
-  public void setLongListener(ActivityListener al) {
+  /**
+   * @param al
+   */
+  public void setLongListener(final ActivityListener al) {
     mLongListener = al;
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     Log.d("MAIN", "setting view");
@@ -79,7 +127,7 @@ public class MainActivity extends Activity implements ControllerListener {
     getFragmentManager().beginTransaction()
         .add(R.id.short_press_info_frame, shortFrag).commit();
 
-    buttonsFrag = FourButtonsFragment.newInstance(m_Controller);
+    buttonsFrag = new FourButtonsFragment();
     buttonsFrag.setListener(m_Controller);
     getFragmentManager().beginTransaction()
         .add(R.id.buttons_frame, buttonsFrag).commit();
@@ -93,58 +141,35 @@ public class MainActivity extends Activity implements ControllerListener {
   }
 
   /*
-   * @Override
-   * public boolean onCreateOptionsMenu(Menu menu) {
-   * // Inflate the menu; this adds items to the action bar if it is present.
-   * getMenuInflater().inflate(R.menu.main, menu);
-   * return true;
-   * }
+   * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate the
+   * menu; this adds items to the action bar if it is present.
+   * getMenuInflater().inflate(R.menu.main, menu); return true; }
    */
 
   /*
-   * public void setShortPressInfo(String[] shortText) {
-   * Bundle args = new Bundle();
-   * for(int i = 0; i < 4; i++)
-   * args.putString(Integer.toString(i), shortText[i]);
-   * shortFrag.setArguments(args);
-   * }
+   * public void setShortPressInfo(String[] shortText) { Bundle args = new
+   * Bundle(); for(int i = 0; i < 4; i++) args.putString(Integer.toString(i),
+   * shortText[i]); shortFrag.setArguments(args); }
    * 
-   * public void setLongPressInfo(String[] longText) {
-   * Bundle args = new Bundle();
-   * for(int i = 0; i < 4; i++)
-   * args.putString(Integer.toString(i), longText[i]);
-   * longFrag.setArguments(args);
-   * }
+   * public void setLongPressInfo(String[] longText) { Bundle args = new
+   * Bundle(); for(int i = 0; i < 4; i++) args.putString(Integer.toString(i),
+   * longText[i]); longFrag.setArguments(args); }
    */
 
   /*
    * public void updateDisplay() {
    * getFragmentManager().beginTransaction().detach(longFrag)
-   * .attach(longFrag).detach(shortFrag).attach(shortFrag).commit();
-   * }
+   * .attach(longFrag).detach(shortFrag).attach(shortFrag).commit(); }
    */
 
   /*
-   * public void setBodyFragment(BodyFragment frag) {
-   * FragmentTransaction t = getFragmentManager().beginTransaction();
-   * switch(frag) {
-   * case HELP_FRAG:
-   * t.replace(R.id.main_frame, helpFrag);
-   * break;
-   * case MESSAGE_FRAG:
-   * t.replace(R.id.main_frame, messageFrag);
-   * break;
-   * case PROTOCOL_FRAG:
-   * t.replace(R.id.main_frame, protocolFrag);
-   * break;
-   * case SETTINGS_FRAG:
-   * t.replace(R.id.main_frame, settingsFrag);
-   * break;
-   * default:
-   * break;
-   * }
-   * t.commit();
-   * }
+   * public void setBodyFragment(BodyFragment frag) { FragmentTransaction t =
+   * getFragmentManager().beginTransaction(); switch(frag) { case HELP_FRAG:
+   * t.replace(R.id.main_frame, helpFrag); break; case MESSAGE_FRAG:
+   * t.replace(R.id.main_frame, messageFrag); break; case PROTOCOL_FRAG:
+   * t.replace(R.id.main_frame, protocolFrag); break; case SETTINGS_FRAG:
+   * t.replace(R.id.main_frame, settingsFrag); break; default: break; }
+   * t.commit(); }
    */
 
   /*
@@ -160,30 +185,27 @@ public class MainActivity extends Activity implements ControllerListener {
   /*
    * public void updateMessage(String in_Message, int in_iCursorPossition){
    * EditText MessageEditText = (EditText) findViewById(R.id.recipients_data);
-   * if (MessageEditText == null)
-   * return;
-   * MessageEditText.setText(in_Message);
-   * MessageEditText.setSelection(in_iCursorPossition);
-   * }
+   * if (MessageEditText == null) return; MessageEditText.setText(in_Message);
+   * MessageEditText.setSelection(in_iCursorPossition); }
    */
 
-  private void sendSMS(String message, String phoneNo) {
-    if(phoneNo.length() <= 0 || message.length() <= 0) {
+  private void sendSMS(final String message, final String phoneNo) {
+    if (phoneNo.length() <= 0 || message.length() <= 0) {
       Toast.makeText(getBaseContext(),
           "Please enter both phone number and message.", Toast.LENGTH_SHORT)
           .show();
       return;
     }
-    String SENT = "SMS_SENT";
-    String DELIVERED = "SMS_DELIVERED";
-    PendingIntent sentPI = PendingIntent.getBroadcast(this, 0,
+    final String SENT = "SMS_SENT";
+    final String DELIVERED = "SMS_DELIVERED";
+    final PendingIntent sentPI = PendingIntent.getBroadcast(this, 0,
         new Intent(SENT), 0);
 
-    PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0, new Intent(
-        DELIVERED), 0);
+    final PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0,
+        new Intent(DELIVERED), 0);
     registerReceiver(new BroadcastReceiver() {
       @Override
-      public void onReceive(Context arg0, Intent arg1) {
+      public void onReceive(final Context arg0, final Intent arg1) {
         switch (getResultCode()) {
         case Activity.RESULT_OK:
           Toast.makeText(getBaseContext(), "SMS sent", Toast.LENGTH_SHORT)
@@ -205,13 +227,15 @@ public class MainActivity extends Activity implements ControllerListener {
           Toast.makeText(getBaseContext(), "Radio off", Toast.LENGTH_SHORT)
               .show();
           break;
+        default:
+          break;
         }
       }
     }, new IntentFilter(SENT));
 
     registerReceiver(new BroadcastReceiver() {
       @Override
-      public void onReceive(Context arg0, Intent arg1) {
+      public void onReceive(final Context arg0, final Intent arg1) {
         switch (getResultCode()) {
         case Activity.RESULT_OK:
           Toast.makeText(getBaseContext(), "SMS delivered", Toast.LENGTH_SHORT)
@@ -221,21 +245,23 @@ public class MainActivity extends Activity implements ControllerListener {
           Toast.makeText(getBaseContext(), "SMS not delivered",
               Toast.LENGTH_SHORT).show();
           break;
+        default:
+          break;
         }
       }
     }, new IntentFilter(DELIVERED));
-    SmsManager SMgr = SmsManager.getDefault();
-    TelephonyManager phoneManager = (TelephonyManager) getApplicationContext()
+    final SmsManager SMgr = SmsManager.getDefault();
+    final TelephonyManager phoneManager = (TelephonyManager) getApplicationContext()
         .getSystemService(Context.TELEPHONY_SERVICE);
-    String myPhoneNo = phoneManager.getLine1Number();
+    final String myPhoneNo = phoneManager.getLine1Number();
     SMgr.sendTextMessage(phoneNo, myPhoneNo, message, sentPI, deliveredPI);
-    ContentValues values = new ContentValues();
+    final ContentValues values = new ContentValues();
     values.put("address", phoneNo);
     values.put("body", message);
     getContentResolver().insert(Uri.parse("content://sms/sent"), values);
   }
 
-  protected TextView getLongTextView(PressID p) {
+  protected TextView getLongTextView(final PressID p) {
     switch (p) {
     case BLUE_PRESS:
       return (TextView) findViewById(R.id.blue_text);
@@ -250,13 +276,13 @@ public class MainActivity extends Activity implements ControllerListener {
     }
   }
 
-  protected TextView getShortTextView(PressID p) {
+  protected TextView getShortTextView(final PressID p) {
     return shortFrag.getInfoAdapter().getTextView(p.ordinal());
   }
 
   @Override
-  public void onRequestFragmentSwap(FragmentID f) {
-    FragmentTransaction t = getFragmentManager().beginTransaction();
+  public void onRequestFragmentSwap(final FragmentID f) {
+    final FragmentTransaction t = getFragmentManager().beginTransaction();
     switch (f) {
     case HELP_FRAG:
       t.replace(R.id.main_frame, helpFrag);
@@ -281,7 +307,7 @@ public class MainActivity extends Activity implements ControllerListener {
     runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        if(b) {
+        if (b) {
           Log.d(TAG, "setting short " + p + " to black");
           getShortTextView(p).setTextColor(
               getResources().getColor(R.color.black));
@@ -299,7 +325,7 @@ public class MainActivity extends Activity implements ControllerListener {
     runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        if(b) {
+        if (b) {
           Log.d(TAG, "setting long " + p + " to black");
           getLongTextView(p).setTextColor(
               getResources().getColor(R.color.black));
@@ -313,21 +339,21 @@ public class MainActivity extends Activity implements ControllerListener {
   }
 
   @Override
-  public void onUpdateMessage(String s, int i) {
-    EditText et = (EditText) findViewById(R.id.message_data);
-    if(et == null)
+  public void onUpdateMessage(final String s, final int i) {
+    final EditText et = (EditText) findViewById(R.id.message_data);
+    if (et == null)
       return;
     et.setText(s);
     et.setSelection(i);
   }
 
   @Override
-  public void onShortInfoUpdate(String[] s) {
+  public void onShortInfoUpdate(final String[] s) {
     mShortListener.onUpdateInfo(s);
   }
 
   @Override
-  public void onLongInfoUpdate(String[] s) {
+  public void onLongInfoUpdate(final String[] s) {
     mLongListener.onUpdateInfo(s);
   }
 
@@ -338,7 +364,7 @@ public class MainActivity extends Activity implements ControllerListener {
   }
 
   @Override
-  public void onSendSMS(String t, String n) {
+  public void onSendSMS(final String t, final String n) {
     sendSMS(t, n);
   }
 }

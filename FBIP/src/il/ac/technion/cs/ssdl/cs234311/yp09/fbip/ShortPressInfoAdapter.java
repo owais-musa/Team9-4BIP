@@ -1,23 +1,28 @@
 package il.ac.technion.cs.ssdl.cs234311.yp09.fbip;
 
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.R;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
-public class ShortPressInfoAdapter extends BaseAdapter implements ListAdapter {
+/**
+ * @author Itamar
+ * 
+ */
+public class ShortPressInfoAdapter extends BaseAdapter {
 
-  private Context mContext;
-  private String[] mKeyInfo;
-  private TextView[] texts = new TextView[4];
+  private final Context mContext;
+  private final String[] mKeyInfo;
+  private final TextView[] texts = new TextView[4];
 
-  public ShortPressInfoAdapter(String[] s, Context c) {
+  /**
+   * @param s
+   * @param c
+   */
+  public ShortPressInfoAdapter(final String[] s, final Context c) {
     mKeyInfo = s;
     mContext = c;
   }
@@ -28,24 +33,25 @@ public class ShortPressInfoAdapter extends BaseAdapter implements ListAdapter {
   }
 
   @Override
-  public Object getItem(int position) {
+  public Object getItem(final int position) {
     return texts[position];
   }
 
   @Override
-  public long getItemId(int position) {
+  public long getItemId(final int position) {
     return position;
   }
 
   @Override
-  public View getView(int position, View convertView, ViewGroup parent) {
+  public View getView(final int position, final View convertView,
+      final ViewGroup parent) {
     View v = convertView;
-    if(convertView == null) {
+    if (convertView == null) {
       Log.d("GRID_VIEW", "inflating");
-      LayoutInflater li = (LayoutInflater) mContext
+      final LayoutInflater li = (LayoutInflater) mContext
           .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       v = li.inflate(R.layout.grid_item, null);
-      TextView text = texts[position] = (TextView) v
+      final TextView text = texts[position] = (TextView) v
           .findViewById(R.id.gridItemText);
       Log.d("GRID_VIEW", "creating view");
       text.setText(mKeyInfo[position]);
@@ -70,7 +76,7 @@ public class ShortPressInfoAdapter extends BaseAdapter implements ListAdapter {
     return v;
   }
 
-  protected TextView getTextView(int position) {
+  protected TextView getTextView(final int position) {
     return texts[position];
   }
 }
