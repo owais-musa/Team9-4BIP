@@ -13,64 +13,64 @@ import android.widget.TextView;
 
 public class ShortPressInfoAdapter extends BaseAdapter implements ListAdapter {
 
-	private Context mContext;
-	private String[] mKeyInfo;
-	private TextView[] texts = new TextView[4];
-	
-	public ShortPressInfoAdapter(String[] data, Context c) {
-		mKeyInfo = data;
-		mContext = c;
-	}
-	
-	@Override
-	public int getCount() {
-		return mKeyInfo.length;
-	}
+  private Context mContext;
+  private String[] mKeyInfo;
+  private TextView[] texts = new TextView[4];
 
-	@Override
-	public Object getItem(int position) {
-		return null;
-	}
+  public ShortPressInfoAdapter(String[] s, Context c) {
+    mKeyInfo = s;
+    mContext = c;
+  }
 
-	@Override
-	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+  @Override
+  public int getCount() {
+    return mKeyInfo.length;
+  }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
-		if(convertView == null) {
-			Log.d("GRID_VIEW", "inflating");
-			LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = li.inflate(R.layout.grid_item, null);
-			TextView text = texts[position] = (TextView) v.findViewById(R.id.gridItemText);
-			Log.d("GRID_VIEW", "creating view");
-			text.setText(mKeyInfo[position]);
-			text.setTextColor(mContext.getResources().getColor(R.color.white));
-			switch(position) {
-			case 0:
-				text.setBackgroundColor(mContext.getResources().getColor(R.color.blue));
-				break;
-			case 1:
-				text.setBackgroundColor(mContext.getResources().getColor(R.color.yellow));
-				break;
-			case 2:
-				text.setBackgroundColor(mContext.getResources().getColor(R.color.green));
-				break;
-			case 3:
-				text.setBackgroundColor(mContext.getResources().getColor(R.color.red));
-				break;
-			default:
-				break;
-					
-			}
-		}
-		return v;
-	}
+  @Override
+  public Object getItem(int position) {
+    return texts[position];
+  }
 
-	protected TextView getTextView(int position) {
-		return texts[position];
-	}
+  @Override
+  public long getItemId(int position) {
+    return position;
+  }
+
+  @Override
+  public View getView(int position, View convertView, ViewGroup parent) {
+    View v = convertView;
+    if(convertView == null) {
+      Log.d("GRID_VIEW", "inflating");
+      LayoutInflater li = (LayoutInflater) mContext
+          .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+      v = li.inflate(R.layout.grid_item, null);
+      TextView text = texts[position] = (TextView) v
+          .findViewById(R.id.gridItemText);
+      Log.d("GRID_VIEW", "creating view");
+      text.setText(mKeyInfo[position]);
+      switch (position) {
+      case 0:
+        text.setBackgroundColor(mContext.getResources().getColor(R.color.blue));
+        break;
+      case 1:
+        text.setBackgroundColor(mContext.getResources()
+            .getColor(R.color.yellow));
+        break;
+      case 2:
+        text.setBackgroundColor(mContext.getResources().getColor(R.color.green));
+        break;
+      case 3:
+        text.setBackgroundColor(mContext.getResources().getColor(R.color.red));
+        break;
+      default:
+        break;
+      }
+    }
+    return v;
+  }
+
+  protected TextView getTextView(int position) {
+    return texts[position];
+  }
 }

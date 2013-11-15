@@ -1,7 +1,6 @@
 package il.ac.technion.cs.ssdl.cs234311.yp09.fbip;
 
 import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.R;
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class LongPressInfoFragment extends Fragment {
+public class LongPressInfoFragment extends Fragment implements ActivityListener {
 	
 	private String[] mText = new String[4];
 
@@ -32,5 +31,10 @@ public class LongPressInfoFragment extends Fragment {
 		}
         return v;
     }
+
+  @Override
+  public void onUpdateInfo(String[] s) {
+    mText = s;
+  }
 
 }
