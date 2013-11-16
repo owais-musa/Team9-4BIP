@@ -22,10 +22,17 @@ import android.util.Log;
  */
 public class Controller implements Serializable, FourButtonsListener {
 
+  /**
+   * Holds the current message text
+   */
+  static public TextController m_message = new TextController();
+
   private static final long serialVersionUID = 4242079014671416782L;
 
   private ControllerListener m_controllerListener;
   private static final String TAG = "CONTROLLER";
+
+  static private State m_currentState;
 
   /**
    *
@@ -48,13 +55,6 @@ public class Controller implements Serializable, FourButtonsListener {
      */
     RED_PRESS
   }
-
-  /**
-   * 
-   */
-  static public TextController m_message = new TextController();
-
-  static private State m_currentState;
 
   /**
    * Setter to m_controllerListener
@@ -110,6 +110,20 @@ public class Controller implements Serializable, FourButtonsListener {
 
     final ClientCom ClientConnection = new Client();
     ClientConnection.send2Server(m_message.getText());
+  }
+
+  /**
+   * Extract the contents from the XML file and return it as arrays to strings
+   * 
+   * @param in_contentFile
+   *          the XML file
+   * @param out_shortPress
+   * @param out_longPress
+   */
+  public static void getContentFromXMLFile(final String in_contentFile,
+      final String[] out_shortPress, final String[] out_longPress) {
+    XMLScreenContentParser.parseScreenContent(in_contentFile, out_shortPress,
+        out_longPress);
   }
 
   @Override

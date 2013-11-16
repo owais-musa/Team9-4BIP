@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content xsi:noNamespaceSchemaLocation="MainState.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<longPress0>Exit</longPress0>
+	<longPress1>Send</longPress1>
+	<longPress2>UNUSED</longPress2>
+	<longPress3>UNUSED</longPress3>
+	<!-- ********************** -->
+	<!-- ********************** -->
+	<!-- ********************** -->
+	<shortPress0>Keyboard</shortPress0>
+	<shortPress1>Protocol</shortPress1>
+	<shortPress2>Recipient</shortPress2>
+	<shortPress3>Settings</shortPress3>
+</content>
+
