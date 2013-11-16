@@ -9,8 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 /**
- * @author Itamar
+ * @author Itamar Bitton
  * 
+ *         Inflates the <code>View</code>s displayed in the
+ *         <code>ShortPressInfoFragment</code>.
  */
 public class ShortPressInfoAdapter extends BaseAdapter {
 
@@ -19,8 +21,13 @@ public class ShortPressInfoAdapter extends BaseAdapter {
   private final TextView[] texts = new TextView[4];
 
   /**
+   * Creates the <code>ShortPressInfoAdapter</code> with the necessary
+   * parameters.
+   * 
    * @param s
+   *          The text to display in the <code>TextView</code>s.
    * @param c
+   *          The associated <code>Context</code>.
    */
   public ShortPressInfoAdapter(final String[] s, final Context c) {
     mKeyInfo = s;
@@ -45,15 +52,15 @@ public class ShortPressInfoAdapter extends BaseAdapter {
   @Override
   public View getView(final int position, final View convertView,
       final ViewGroup parent) {
-    View v = convertView;
+    View $ = convertView;
     if (convertView == null) {
       Log.d("GRID_VIEW", "inflating");
-      final LayoutInflater li = (LayoutInflater) mContext
-          .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-      v = li.inflate(R.layout.grid_item, null);
-      final TextView text = texts[position] = (TextView) v
-          .findViewById(R.id.gridItemText);
+      $ = ((LayoutInflater) mContext
+          .getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
+          R.layout.grid_item, null);
       Log.d("GRID_VIEW", "creating view");
+      final TextView text = texts[position] = (TextView) $
+          .findViewById(R.id.gridItemText);
       text.setText(mKeyInfo[position]);
       switch (position) {
       case 0:
@@ -73,7 +80,7 @@ public class ShortPressInfoAdapter extends BaseAdapter {
         break;
       }
     }
-    return v;
+    return $;
   }
 
   protected TextView getTextView(final int position) {

@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * @author Itamar
+ * @author Itamar Bitton
  * 
+ *         Displays information regarding the message to send. TODO: update
+ *         description.
  */
 public class MessageFragment extends Fragment {
   @Override

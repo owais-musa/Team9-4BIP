@@ -93,37 +93,15 @@ public class Controller implements Serializable, FourButtonsListener {
     displayState(m_CurrentState);
   }
 
-  /*
-   * public void clickOn(ControllerPressType in_pressType) { State nextState =
-   * null;
-   * 
-   * switch (in_pressType) { case SHORT_PRESS1: nextState =
-   * m_CurrentState.onShort1Press(); break; case SHORT_PRESS2: nextState =
-   * m_CurrentState.onShort2Press(); break; case SHORT_PRESS3: nextState =
-   * m_CurrentState.onShort3Press(); break; case SHORT_PRESS4: nextState =
-   * m_CurrentState.onShort4Press(); break; case LONG_PRESS1: nextState =
-   * m_CurrentState.onLong1Press(); break; case LONG_PRESS2: nextState =
-   * m_CurrentState.onLong2Press(); break; case LONG_PRESS3: nextState =
-   * m_CurrentState.onLong3Press(); break; case LONG_PRESS4: nextState =
-   * m_CurrentState.onLong4Press(); break;
-   * 
-   * default: assert (false); break; }
-   * 
-   * displayState(nextState); }
-   */
-
   /**
    * 
    */
   public void sendSMS() {
     mControllerListener.onSendSMS(m_Message.getText(), "+972526225366");
-    final StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-        .permitAll().build();
+    StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+        .permitAll().build());
 
-    StrictMode.setThreadPolicy(policy);
-
-    final ClientCom ClientConnection = new Client();
-    ClientConnection.send2Server(m_Message.getText());
+    new Client().send2Server(m_Message.getText());
   }
 
   /*

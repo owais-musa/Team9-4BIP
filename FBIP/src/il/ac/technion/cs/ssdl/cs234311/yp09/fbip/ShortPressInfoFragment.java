@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 /**
- * @author Itamar
+ * @author Itamar Bitton
  * 
+ *         Displays the operations to be performed in the event of a short
+ *         button press.
  */
 public class ShortPressInfoFragment extends Fragment implements
     ActivityListener {
@@ -21,13 +23,11 @@ public class ShortPressInfoFragment extends Fragment implements
   @Override
   public View onCreateView(final LayoutInflater inflater,
       final ViewGroup container, final Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
-    final View view = inflater.inflate(R.layout.short_press_info_fragment,
-        container, false);
-    final GridView grid = (GridView) view.findViewById(R.id.grid_view);
     infoAdapter = new ShortPressInfoAdapter(mKeyInfo, getActivity());
-    grid.setAdapter(infoAdapter);
-    return view;
+    final View $ = inflater.inflate(R.layout.short_press_info_fragment,
+        container, false);
+    ((GridView) $.findViewById(R.id.grid_view)).setAdapter(infoAdapter);
+    return $;
   }
 
   protected ShortPressInfoAdapter getInfoAdapter() {

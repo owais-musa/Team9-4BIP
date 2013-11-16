@@ -1,11 +1,11 @@
 package il.ac.technion.cs.ssdl.cs234311.yp09.states;
 
 import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.ControllerListener.FragmentID;
+import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.MainActivity.FragmentID;
 
 public class MainState extends State {
 
-  public MainState(Controller c) {
+  public MainState(final Controller c) {
     super(c);
     shortPress[0] = "Keyboard";
     shortPress[1] = "Protocol";
@@ -28,8 +28,8 @@ public class MainState extends State {
   public State onShort2Press() {
     // Protocol
     /*
-     * Important: this method should be changed in the future.
-     * Meanwhile our App supports SMS protocol only.
+     * Important: this method should be changed in the future. Meanwhile our App
+     * supports SMS protocol only.
      */
     mController.getListener().onRequestFragmentSwap(FragmentID.PROTOCOL_FRAG);
     return this;
@@ -40,8 +40,8 @@ public class MainState extends State {
   @Override
   public State onShort3Press() {
     /*
-     * Important: this method should be changed in the future.
-     * Meanwhile our App supports inserting numbers manually.
+     * Important: this method should be changed in the future. Meanwhile our App
+     * supports inserting numbers manually.
      */
     return this;
 
@@ -51,8 +51,8 @@ public class MainState extends State {
   @Override
   public State onShort4Press() {
     /*
-     * Important: this method should be changed in the future.
-     * Meanwhile we do NOT enable changing settings.
+     * Important: this method should be changed in the future. Meanwhile we do
+     * NOT enable changing settings.
      */
     return this;
 
@@ -62,9 +62,8 @@ public class MainState extends State {
   @Override
   public State onLong1Press() {
     /*
-     * Important: this method should be changed in the future.
-     * Meanwhile we just exit the application.
-     * No backup/other operations are done.
+     * Important: this method should be changed in the future. Meanwhile we just
+     * exit the application. No backup/other operations are done.
      */
     // TODO: consider a better way of exiting the app (calling destroy() on the
     // activity for instance)

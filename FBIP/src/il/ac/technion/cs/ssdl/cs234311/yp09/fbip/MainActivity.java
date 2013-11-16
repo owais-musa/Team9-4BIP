@@ -20,55 +20,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * @author Itamar
+ * @author Itamar Bitton
  * 
+ *         The main <code>Activity</code> of the app.\n Displays the fragments
+ *         of the app and listens to events from the <code>Controller</code>.
+ *         //TODO: extend description
  */
 public class MainActivity extends Activity implements ControllerListener {
 
   /**
-   * @author Itamar
-   * 
+   * Defines the <code>Fragment</code> types available in the main
+   * <code>Activity</code>.
    */
-  public static enum BodyFragment {
-    /**
-     * 
-     */
-    HELP_FRAG,
-    /**
-     * 
-     */
+  public enum FragmentID {
+    /** <code>MessageFragment</code> */
     MESSAGE_FRAG,
-    /**
-     * 
-     */
+    /** <code>SettingsFragment</code> */
+    SETTINGS_FRAG,
+    /** <code>ProtocolFragmet</code> */
     PROTOCOL_FRAG,
-    /**
-     * 
-     */
-    SETTINGS_FRAG;
-  }
-
-  /**
-   * @author Itamar
-   * 
-   */
-  public static enum Color {
-    /**
-     * 
-     */
-    BLUE,
-    /**
-     * 
-     */
-    YELLOW,
-    /**
-     * 
-     */
-    GREEN,
-    /**
-     * 
-     */
-    RED
+    /** <code>HelpFragment</code> */
+    HELP_FRAG
   }
 
   private Controller m_Controller;
@@ -89,14 +61,22 @@ public class MainActivity extends Activity implements ControllerListener {
   private static final String TAG = "MAIN";
 
   /**
+   * Registers a listener to be invoked when short operation texts must be
+   * updated.
+   * 
    * @param al
+   *          The listener to register.
    */
   public void setShortListener(final ActivityListener al) {
     mShortListener = al;
   }
 
   /**
+   * Registers a listener to be invoked when long operation texts must be
+   * updated.
+   * 
    * @param al
+   *          The listener to register.
    */
   public void setLongListener(final ActivityListener al) {
     mLongListener = al;
@@ -146,49 +126,6 @@ public class MainActivity extends Activity implements ControllerListener {
    * getMenuInflater().inflate(R.menu.main, menu); return true; }
    */
 
-  /*
-   * public void setShortPressInfo(String[] shortText) { Bundle args = new
-   * Bundle(); for(int i = 0; i < 4; i++) args.putString(Integer.toString(i),
-   * shortText[i]); shortFrag.setArguments(args); }
-   * 
-   * public void setLongPressInfo(String[] longText) { Bundle args = new
-   * Bundle(); for(int i = 0; i < 4; i++) args.putString(Integer.toString(i),
-   * longText[i]); longFrag.setArguments(args); }
-   */
-
-  /*
-   * public void updateDisplay() {
-   * getFragmentManager().beginTransaction().detach(longFrag)
-   * .attach(longFrag).detach(shortFrag).attach(shortFrag).commit(); }
-   */
-
-  /*
-   * public void setBodyFragment(BodyFragment frag) { FragmentTransaction t =
-   * getFragmentManager().beginTransaction(); switch(frag) { case HELP_FRAG:
-   * t.replace(R.id.main_frame, helpFrag); break; case MESSAGE_FRAG:
-   * t.replace(R.id.main_frame, messageFrag); break; case PROTOCOL_FRAG:
-   * t.replace(R.id.main_frame, protocolFrag); break; case SETTINGS_FRAG:
-   * t.replace(R.id.main_frame, settingsFrag); break; default: break; }
-   * t.commit(); }
-   */
-
-  /*
-   * public void setCurrentFragmentToBackstack() {
-   * 
-   * }
-   * 
-   * public void removeAndSetLastFragmentInBackstack() {
-   * 
-   * }
-   */
-
-  /*
-   * public void updateMessage(String in_Message, int in_iCursorPossition){
-   * EditText MessageEditText = (EditText) findViewById(R.id.recipients_data);
-   * if (MessageEditText == null) return; MessageEditText.setText(in_Message);
-   * MessageEditText.setSelection(in_iCursorPossition); }
-   */
-
   private void sendSMS(final String message, final String phoneNo) {
     if (phoneNo.length() <= 0 || message.length() <= 0) {
       Toast.makeText(getBaseContext(),
@@ -198,11 +135,6 @@ public class MainActivity extends Activity implements ControllerListener {
     }
     final String SENT = "SMS_SENT";
     final String DELIVERED = "SMS_DELIVERED";
-    final PendingIntent sentPI = PendingIntent.getBroadcast(this, 0,
-        new Intent(SENT), 0);
-
-    final PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0,
-        new Intent(DELIVERED), 0);
     registerReceiver(new BroadcastReceiver() {
       @Override
       public void onReceive(final Context arg0, final Intent arg1) {
@@ -251,6 +183,10 @@ public class MainActivity extends Activity implements ControllerListener {
       }
     }, new IntentFilter(DELIVERED));
     final SmsManager SMgr = SmsManager.getDefault();
+    final PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0,
+        new Intent(DELIVERED), 0);
+    final PendingIntent sentPI = PendingIntent.getBroadcast(this, 0,
+        new Intent(SENT), 0);
     final TelephonyManager phoneManager = (TelephonyManager) getApplicationContext()
         .getSystemService(Context.TELEPHONY_SERVICE);
     final String myPhoneNo = phoneManager.getLine1Number();
