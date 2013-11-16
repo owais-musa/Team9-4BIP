@@ -68,14 +68,14 @@ public class KeyboardState extends State {
   // <--
   @Override
   public State onLong3Press() {
-    Controller.m_Message.moveCurserToTheLeft();
+    Controller.m_message.moveCurserToTheLeft();
     return this;
   }
 
   // -->
   @Override
   public State onLong4Press() {
-    Controller.m_Message.moveCurserToTheRight();
+    Controller.m_message.moveCurserToTheRight();
     return this;
   }
 

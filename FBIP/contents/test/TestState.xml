@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content xsi:noNamespaceSchemaLocation="TestState.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<longPress0>long press test 0</longPress0>
+	<longPress1>long press test 1</longPress1>
+	<longPress2>long press test 2</longPress2>
+	<longPress3>long press test 3</longPress3>
+	<!-- ********************** -->
+	<!-- ********************** -->
+	<!-- ********************** -->
+	<shortPress0>short press test 0</shortPress0>
+	<shortPress1>short press test 1</shortPress1>
+	<shortPress2>short press test 2</shortPress2>
+	<shortPress3>short press test 3</shortPress3>
+</content>
+

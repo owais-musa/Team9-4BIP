@@ -45,7 +45,7 @@ public class NumbersState extends State {
        */
       return this;
     else if (size == 1) {
-      Controller.m_Message.insertChar(shortPress[i - 1].charAt(0));
+      Controller.m_message.insertChar(shortPress[i - 1].charAt(0));
       return new KeyboardState(mController);
     } else {
       final String[] choosenItems = shortPress[i - 1].split(" ");

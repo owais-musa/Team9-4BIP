@@ -45,7 +45,7 @@ public class SmileysState extends State {
        */
       return this;
     else if (size == 1) {
-      Controller.m_Message.insertChars(shortPress[i - 1]);
+      Controller.m_message.insertChars(shortPress[i - 1]);
       return new KeyboardState(mController);
     } else {
       final String[] choosenItems = shortPress[i - 1].split(" ");

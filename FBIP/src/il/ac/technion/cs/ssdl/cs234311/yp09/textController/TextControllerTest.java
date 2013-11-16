@@ -18,7 +18,7 @@ public class TextControllerTest extends TestCase {
   static public void testInsertChar() {
     final TextController Message = new TextController();
 
-    int iCursorPossition = Message.getCursorPossition();
+    int iCursorPossition = Message.getCursorPosition();
     String MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -26,7 +26,7 @@ public class TextControllerTest extends TestCase {
 
     Message.insertChar(' ');
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 1 || !MessageText.equals(" "))
@@ -41,7 +41,7 @@ public class TextControllerTest extends TestCase {
     Message.insertChar(':');
     Message.insertChar(')');
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 9 || !MessageText.equals(" !!test:)"))
@@ -54,7 +54,7 @@ public class TextControllerTest extends TestCase {
     Message.insertChar(':');
     Message.insertChar('(');
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 8 || !MessageText.equals(" !!tes:(t:)"))
@@ -68,7 +68,7 @@ public class TextControllerTest extends TestCase {
   static public void testInsertChars() {
     final TextController Message = new TextController();
 
-    int iCursorPossition = Message.getCursorPossition();
+    int iCursorPossition = Message.getCursorPosition();
     String MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -76,7 +76,7 @@ public class TextControllerTest extends TestCase {
 
     Message.insertChars("good test:)");
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 11 || !MessageText.equals("good test:)"))
@@ -86,7 +86,7 @@ public class TextControllerTest extends TestCase {
       Message.moveCurserToTheLeft();
     Message.insertChars("!!!!");
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 10 || !MessageText.equals("good t!!!!est:)"))
@@ -99,7 +99,7 @@ public class TextControllerTest extends TestCase {
   static public void testDeletetChar() {
     final TextController Message = new TextController();
 
-    int iCursorPossition = Message.getCursorPossition();
+    int iCursorPossition = Message.getCursorPosition();
     String MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -107,7 +107,7 @@ public class TextControllerTest extends TestCase {
 
     Message.insertChars("good test:)");
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 11 || !MessageText.equals("good test:)"))
@@ -116,7 +116,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 5; i++)
       Message.deletetChar();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 6 || !MessageText.equals("good t"))
@@ -125,7 +125,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 10; i++)
       Message.moveCurserToTheLeft(); // now cursor = 0
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals("good t"))
@@ -134,7 +134,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 5; i++)
       Message.deletetChar(); // do nothing!
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals("good t"))
@@ -142,7 +142,7 @@ public class TextControllerTest extends TestCase {
 
     Message.deleteAll();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -151,7 +151,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 5; i++)
       Message.deletetChar(); // do nothing!
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -165,7 +165,7 @@ public class TextControllerTest extends TestCase {
   static public void testMoveCurserToTheRightAndLeft() {
     final TextController Message = new TextController();
 
-    int iCursorPossition = Message.getCursorPossition();
+    int iCursorPossition = Message.getCursorPosition();
     String MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -174,7 +174,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 20; i++)
       Message.moveCurserToTheRight(); // do nothing!
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -183,7 +183,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 20; i++)
       Message.moveCurserToTheLeft(); // do nothing!
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -191,7 +191,7 @@ public class TextControllerTest extends TestCase {
 
     Message.insertChars("my test!!!");
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 10 || !MessageText.equals("my test!!!"))
@@ -200,7 +200,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 20; i++)
       Message.moveCurserToTheRight(); // do nothing!
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 10 || !MessageText.equals("my test!!!"))
@@ -209,7 +209,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 5; i++)
       Message.moveCurserToTheLeft();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 5 || !MessageText.equals("my test!!!"))
@@ -218,7 +218,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 4; i++)
       Message.moveCurserToTheRight();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 9 || !MessageText.equals("my test!!!"))
@@ -227,7 +227,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 5; i++)
       Message.moveCurserToTheRight();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 10 || !MessageText.equals("my test!!!"))
@@ -236,7 +236,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 50; i++)
       Message.moveCurserToTheLeft();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals("my test!!!"))
@@ -244,7 +244,7 @@ public class TextControllerTest extends TestCase {
 
     Message.moveCurserToTheRight();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 1 || !MessageText.equals("my test!!!"))
@@ -258,7 +258,7 @@ public class TextControllerTest extends TestCase {
   static public void testDeleteAll() {
     final TextController Message = new TextController();
 
-    int iCursorPossition = Message.getCursorPossition();
+    int iCursorPossition = Message.getCursorPosition();
     String MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -266,7 +266,7 @@ public class TextControllerTest extends TestCase {
 
     Message.insertChars("good test:)");
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 11 || !MessageText.equals("good test:)"))
@@ -274,7 +274,7 @@ public class TextControllerTest extends TestCase {
 
     Message.deleteAll();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -283,7 +283,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 5; i++)
       Message.deleteAll(); // do nothing!
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -293,7 +293,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 10; i++)
       Message.moveCurserToTheLeft();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 7 || !MessageText.equals("interesting test!"))
@@ -301,7 +301,7 @@ public class TextControllerTest extends TestCase {
 
     Message.deleteAll();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -315,7 +315,7 @@ public class TextControllerTest extends TestCase {
   static public void testUndoLastOp() {
     final TextController Message = new TextController();
 
-    int iCursorPossition = Message.getCursorPossition();
+    int iCursorPossition = Message.getCursorPosition();
     String MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -323,7 +323,7 @@ public class TextControllerTest extends TestCase {
 
     Message.undoLastOp(); // do nothing
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -331,7 +331,7 @@ public class TextControllerTest extends TestCase {
 
     Message.insertChars("interesting test");
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 16 || !MessageText.equals("interesting test"))
@@ -339,7 +339,7 @@ public class TextControllerTest extends TestCase {
 
     Message.undoLastOp();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -349,7 +349,7 @@ public class TextControllerTest extends TestCase {
     for (int i = 0; i < 10; i++)
       Message.moveCurserToTheLeft();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 6 || !MessageText.equals("interesting test"))
@@ -357,7 +357,7 @@ public class TextControllerTest extends TestCase {
 
     Message.undoLastOp();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 7 || !MessageText.equals("interesting test"))
@@ -365,7 +365,7 @@ public class TextControllerTest extends TestCase {
 
     Message.deleteAll();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -373,7 +373,7 @@ public class TextControllerTest extends TestCase {
 
     Message.undoLastOp();
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 7 || !MessageText.equals("interesting test"))
@@ -387,7 +387,7 @@ public class TextControllerTest extends TestCase {
   static public void testGetCursorPosition() {
     final TextController Message = new TextController();
 
-    int iCursorPossition = Message.getCursorPossition();
+    int iCursorPossition = Message.getCursorPosition();
     String MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -395,7 +395,7 @@ public class TextControllerTest extends TestCase {
 
     Message.insertChars("simple test");
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 11 || !MessageText.equals("simple test"))
@@ -408,7 +408,7 @@ public class TextControllerTest extends TestCase {
   static public void testGetText() {
     final TextController Message = new TextController();
 
-    int iCursorPossition = Message.getCursorPossition();
+    int iCursorPossition = Message.getCursorPosition();
     String MessageText = Message.getText();
 
     if (iCursorPossition != 0 || !MessageText.equals(""))
@@ -416,7 +416,7 @@ public class TextControllerTest extends TestCase {
 
     Message.insertChars("simple test");
 
-    iCursorPossition = Message.getCursorPossition();
+    iCursorPossition = Message.getCursorPosition();
     MessageText = Message.getText();
 
     if (iCursorPossition != 11 || !MessageText.equals("simple test"))
