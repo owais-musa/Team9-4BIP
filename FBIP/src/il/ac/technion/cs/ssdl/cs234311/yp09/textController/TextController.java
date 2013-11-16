@@ -25,7 +25,7 @@ public class TextController {
   }
 
   /**
-   * constructs the class with an empty text
+   * Constructs the class with an empty text
    */
   public TextController() {
     m_text = new ArrayList<Character>();
@@ -33,10 +33,10 @@ public class TextController {
   }
 
   /**
-   * inserts list of chars to the text starting the the current cursor position
+   * Inserts list of chars to the text starting the the current cursor position
    * 
    * @param in_newString
-   *          the string to be added
+   *          The string to be added
    */
   public void insertChars(final String in_newString) {
     assert m_cursorPosition >= 0 && m_cursorPosition <= m_text.size();
@@ -50,10 +50,10 @@ public class TextController {
   }
 
   /**
-   * inserts a new character to the text at the current cursor position
+   * Inserts a new character to the text at the current cursor position
    * 
    * @param in_newChar
-   *          the new character to be added to the text
+   *          The new character to be added to the text
    */
   public void insertChar(final char in_newChar) {
     assert m_cursorPosition >= 0 && m_cursorPosition <= m_text.size();
@@ -64,7 +64,7 @@ public class TextController {
   }
 
   /**
-   * deletes the character behind the cursor
+   * Deletes the character behind the cursor
    */
   public void deletetChar() {
     assert m_cursorPosition >= 0 && m_cursorPosition <= m_text.size();
@@ -78,7 +78,7 @@ public class TextController {
   }
 
   /**
-   * moves the cursor one step to the right
+   * Moves the cursor one step to the right
    */
   public void moveCurserToTheRight() {
     assert m_cursorPosition >= 0 && m_cursorPosition <= m_text.size();
@@ -91,7 +91,7 @@ public class TextController {
   }
 
   /**
-   * moves the cursor one step to the left
+   * Moves the cursor one step to the left
    */
   public void moveCurserToTheLeft() {
     assert m_cursorPosition >= 0 && m_cursorPosition <= m_text.size();
@@ -104,7 +104,7 @@ public class TextController {
   }
 
   /**
-   * deletes all the text, the text after this operation will be empty
+   * Deletes all the text, the text after this operation will be empty
    */
   public void deleteAll() {
     saveData();
@@ -113,7 +113,7 @@ public class TextController {
   }
 
   /**
-   * undo the last operation was done on the text
+   * Undo the last operation was done on the text
    */
   public void undoLastOp() {
     if (m_prevText == null)
@@ -127,26 +127,26 @@ public class TextController {
   }
 
   /**
-   * getter to the field that represents the cursor position
+   * Getter to the field that represents the cursor position
    * 
-   * @return the cursor position
+   * @return The cursor position
    */
-  public int getCursorPossition() {
+  public int getCursorPosition() {
     return m_cursorPosition;
   }
 
   /**
-   * returns the text as string
+   * Returns the text as string
    * 
-   * @return the text string
+   * @return The text string
    */
   public String getText() {
-    String Str = new String();
+    String $ = new String();
 
     for (int i = 0; i < m_text.size(); i++)
-      Str += m_text.get(i);
+      $ += m_text.get(i);
 
-    return Str;
+    return $;
   }
 
 }

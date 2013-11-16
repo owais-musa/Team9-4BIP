@@ -20,14 +20,14 @@ public class OperationsState extends State {
   // Delete
   @Override
   public State onShort1Press() {
-    Controller.m_Message.deletetChar();
+    Controller.m_message.deletetChar();
     return new KeyboardState(mController);
   }
 
   // Delete All
   @Override
   public State onShort2Press() {
-    Controller.m_Message.deleteAll();
+    Controller.m_message.deleteAll();
     return new KeyboardState(mController);
   }
 
@@ -41,7 +41,7 @@ public class OperationsState extends State {
   // Restore Previous
   @Override
   public State onShort4Press() {
-    Controller.m_Message.undoLastOp();
+    Controller.m_message.undoLastOp();
     return new KeyboardState(mController);
   }
 

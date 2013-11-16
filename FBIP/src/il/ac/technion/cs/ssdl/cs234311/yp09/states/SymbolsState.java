@@ -54,9 +54,9 @@ public class SymbolsState extends State {
       return this;
     else if (size == 1) {
       if (shortPress[i - 1].equals("space"))
-        Controller.m_Message.insertChar(' ');
+        Controller.m_message.insertChar(' ');
       else
-        Controller.m_Message.insertChar(shortPress[i - 1].charAt(0));
+        Controller.m_message.insertChar(shortPress[i - 1].charAt(0));
       return new KeyboardState(mController);
     } else {
       final String[] choosenItems = shortPress[i - 1].split(" ");

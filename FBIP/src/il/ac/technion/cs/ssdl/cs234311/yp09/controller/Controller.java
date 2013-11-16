@@ -14,14 +14,17 @@ import android.os.StrictMode;
 import android.util.Log;
 
 /**
- *
+ * Controls the UI and the logic part
+ * 
+ * @date 11/5/2013
+ * @email owais.musa@gmail.com
+ * @author Owais Musa, Itamar
  */
 public class Controller implements Serializable, FourButtonsListener {
-  /**
-	 * 
-	 */
+
   private static final long serialVersionUID = 4242079014671416782L;
-  private ControllerListener mControllerListener;
+
+  private ControllerListener m_controllerListener;
   private static final String TAG = "CONTROLLER";
 
   /**
@@ -49,121 +52,89 @@ public class Controller implements Serializable, FourButtonsListener {
   /**
    * 
    */
-  static public TextController m_Message = new TextController();
+  static public TextController m_message = new TextController();
 
-  static private State m_CurrentState;
+  static private State m_currentState;
 
   /**
-   * @param cl
+   * Setter to m_controllerListener
+   * 
+   * @param in_controllerListener
    */
-  public void setListener(final ControllerListener cl) {
-    mControllerListener = cl;
+  public void setListener(final ControllerListener in_controllerListener) {
+    m_controllerListener = in_controllerListener;
   }
 
   /**
-   * 
+   * Constructs the controller with the main state
    */
   public Controller() {
-    // m_MainActivity = in_MainActivity;
-    m_CurrentState = new MainState(this);
+    m_currentState = new MainState(this);
   }
 
-  // Temp solution for the bug of the upper fragment disappearance
-  // boolean m_fAccessedMessageFragment = true;
-
   /**
+   * change the current content on the screen
+   * 
    * @param m_State
+   *          next state to be shown on the screen
    */
   public void displayState(final State m_State) {
     assert m_State != null;
 
-    m_CurrentState = m_State;
+    m_currentState = m_State;
 
-    mControllerListener.onShortInfoUpdate(m_CurrentState.shortPress);
-    mControllerListener.onLongInfoUpdate(m_CurrentState.longPress);
-    mControllerListener.onUpdateMessage(m_Message.getText(),
-        m_Message.getCursorPossition());
-    mControllerListener.onUpdateDisplay();
+    m_controllerListener.onShortInfoUpdate(m_currentState.shortPress);
+    m_controllerListener.onLongInfoUpdate(m_currentState.longPress);
+    m_controllerListener.onUpdateMessage(m_message.getText(),
+        m_message.getCursorPosition());
+    m_controllerListener.onUpdateDisplay();
   }
 
   /**
-   * 
+   * Starts the activity of the controller
    */
   public void start() {
-    displayState(m_CurrentState);
+    displayState(m_currentState);
   }
 
-  /*
-   * public void clickOn(ControllerPressType in_pressType) { State nextState =
-   * null;
-   * 
-   * switch (in_pressType) { case SHORT_PRESS1: nextState =
-   * m_CurrentState.onShort1Press(); break; case SHORT_PRESS2: nextState =
-   * m_CurrentState.onShort2Press(); break; case SHORT_PRESS3: nextState =
-   * m_CurrentState.onShort3Press(); break; case SHORT_PRESS4: nextState =
-   * m_CurrentState.onShort4Press(); break; case LONG_PRESS1: nextState =
-   * m_CurrentState.onLong1Press(); break; case LONG_PRESS2: nextState =
-   * m_CurrentState.onLong2Press(); break; case LONG_PRESS3: nextState =
-   * m_CurrentState.onLong3Press(); break; case LONG_PRESS4: nextState =
-   * m_CurrentState.onLong4Press(); break;
-   * 
-   * default: assert (false); break; }
-   * 
-   * displayState(nextState); }
-   */
-
   /**
-   * 
+   * To be called from the logic part in order to send the current message as
+   * SMS and as a log to the server
    */
   public void sendSMS() {
-    mControllerListener.onSendSMS(m_Message.getText(), "+972526225366");
+    m_controllerListener.onSendSMS(m_message.getText(), "+972526225366");
     final StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
         .permitAll().build();
 
     StrictMode.setThreadPolicy(policy);
 
     final ClientCom ClientConnection = new Client();
-    ClientConnection.send2Server(m_Message.getText());
+    ClientConnection.send2Server(m_message.getText());
   }
-
-  /*
-   * public void changeState(PressType type, PressID id) { switch (type) { case
-   * LONG_PRESS: switch (id) { case BLUE_PRESS:
-   * clickOn(ControllerPressType.LONG_PRESS1); break; case YELLOW_PRESS:
-   * clickOn(ControllerPressType.LONG_PRESS2); break; case GREEN_PRESS:
-   * clickOn(ControllerPressType.LONG_PRESS3); break; case RED_PRESS:
-   * clickOn(ControllerPressType.LONG_PRESS4); break; default: assert (false); }
-   * break; case SHORT_PRESS: switch (id) { case BLUE_PRESS:
-   * clickOn(ControllerPressType.SHORT_PRESS1); break; case YELLOW_PRESS:
-   * clickOn(ControllerPressType.SHORT_PRESS2); break; case GREEN_PRESS:
-   * clickOn(ControllerPressType.SHORT_PRESS3); break; case RED_PRESS:
-   * clickOn(ControllerPressType.SHORT_PRESS4); break; default: assert (false);
-   * } break; default: assert (false); } }
-   */
 
   @Override
   public void onShortPress(final PressID p) {
     Log.d(TAG, "press: emphasizing short " + p);
-    mControllerListener.emphasizeShort(p, true);
+    m_controllerListener.emphasizeShort(p, true);
   }
 
   @Override
   public void onShortRelease(final PressID p) {
     Log.d(TAG, "release: de-emphasizing short " + p);
-    mControllerListener.emphasizeShort(p, false);
+    m_controllerListener.emphasizeShort(p, false);
     State next = null;
     switch (p) {
     case BLUE_PRESS:
-      next = m_CurrentState.onShort1Press();
+      next = m_currentState.onShort1Press();
       break;
     case YELLOW_PRESS:
-      next = m_CurrentState.onShort2Press();
+      next = m_currentState.onShort2Press();
       break;
     case GREEN_PRESS:
-      next = m_CurrentState.onShort3Press();
+      next = m_currentState.onShort3Press();
       break;
     case RED_PRESS:
-      next = m_CurrentState.onShort4Press();
+      next = m_currentState.onShort4Press();
       break;
     default:
       assert false;
@@ -174,28 +145,28 @@ public class Controller implements Serializable, FourButtonsListener {
   @Override
   public void onLongPress(final PressID p) {
     Log.d(TAG, "press: de-emphasizing short " + p);
-    mControllerListener.emphasizeShort(p, false);
+    m_controllerListener.emphasizeShort(p, false);
     Log.d(TAG, "press: emphasizing long " + p);
-    mControllerListener.emphasizeLong(p, true);
+    m_controllerListener.emphasizeLong(p, true);
   }
 
   @Override
   public void onLongRelease(final PressID p) {
     Log.d(TAG, "release: de-emphasizing long " + p);
-    mControllerListener.emphasizeLong(p, false);
+    m_controllerListener.emphasizeLong(p, false);
     State next = null;
     switch (p) {
     case BLUE_PRESS:
-      next = m_CurrentState.onLong1Press();
+      next = m_currentState.onLong1Press();
       break;
     case YELLOW_PRESS:
-      next = m_CurrentState.onLong2Press();
+      next = m_currentState.onLong2Press();
       break;
     case GREEN_PRESS:
-      next = m_CurrentState.onLong3Press();
+      next = m_currentState.onLong3Press();
       break;
     case RED_PRESS:
-      next = m_CurrentState.onLong4Press();
+      next = m_currentState.onLong4Press();
       break;
     default:
       assert false;
@@ -207,7 +178,7 @@ public class Controller implements Serializable, FourButtonsListener {
    * @return the listener registered to handle controller requests
    */
   public ControllerListener getListener() {
-    return mControllerListener;
+    return m_controllerListener;
   }
 
 }
