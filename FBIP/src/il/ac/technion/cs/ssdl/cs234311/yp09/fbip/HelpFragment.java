@@ -7,8 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * @author Itamar
+ * @author Itamar Bitton
  * 
+ *         Displays information on how to use the app.
  */
 public class HelpFragment extends Fragment {
   @Override

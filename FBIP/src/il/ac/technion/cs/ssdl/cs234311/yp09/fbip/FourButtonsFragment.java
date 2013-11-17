@@ -16,36 +16,39 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 /**
- * @author Itamar
+ * @author Itamar Bitton
  * 
+ *         The <code>Fragment</code> that represents the virtual four buttons.
  */
 public class FourButtonsFragment extends Fragment {
   protected static final String TAG = "BUTTONS";
-  FourButtonsListener mFBListener;
+  FourButtonsListener mFourButtonListener;
 
   @Override
   public View onCreateView(final LayoutInflater inflater,
       final ViewGroup container, final Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    final View view = inflater.inflate(R.layout.buttons_fragment, container,
-        false);
+    final View $ = inflater
+        .inflate(R.layout.buttons_fragment, container, false);
     final int[] bIDs = { R.id.blue_button, R.id.yellow_button,
         R.id.green_button, R.id.red_button };
-    for (int i = 0; i < 4; i++) {
-      final Button b = (Button) view.findViewById(bIDs[i]);
-      b.setOnTouchListener(new ButtonListener(PressID.values()[i]));
-    }
-    return view;
+    for (int i = 0; i < 4; i++)
+      ((Button) $.findViewById(bIDs[i])).setOnTouchListener(new ButtonListener(
+          PressID.values()[i]));
+    return $;
   }
 
   /**
+   * Register a listener to be invoked when this virtual interface sends events.
+   * 
    * @param l
+   *          The listener to register.
    */
   public void setListener(final FourButtonsListener l) {
-    mFBListener = l;
+    mFourButtonListener = l;
   }
 
-  class ButtonListener implements OnTouchListener {
+  private class ButtonListener implements OnTouchListener {
     private static final int LONG_PRESS_DELAY = 2000;
     private static final int SHORT_PRESS_DELAY = 500;
     long pressTime, duration;
@@ -60,14 +63,13 @@ public class FourButtonsFragment extends Fragment {
     public boolean onTouch(final View v, final MotionEvent event) {
       if (event.getAction() == MotionEvent.ACTION_DOWN) { // button pressed
         pressTime = System.currentTimeMillis();
-        Log.d(TAG, "listener: " + mFBListener);
         timer = new Timer();
         timer.schedule(new TimerTask() {
           @Override
           public void run() {
             Log.d("TIMER_TASK", "short press "
                 + (System.currentTimeMillis() - pressTime));
-            mFBListener.onShortPress(buttonID);
+            mFourButtonListener.onShortPress(buttonID);
           }
         }, SHORT_PRESS_DELAY);
         timer.schedule(new TimerTask() {
@@ -75,20 +77,19 @@ public class FourButtonsFragment extends Fragment {
           public void run() {
             Log.d("TIMER_TASK", "long press "
                 + (System.currentTimeMillis() - pressTime));
-            mFBListener.onLongPress(buttonID);
+            mFourButtonListener.onLongPress(buttonID);
           }
         }, LONG_PRESS_DELAY);
+        return true;
       } else if (event.getAction() == MotionEvent.ACTION_UP) {
         duration = System.currentTimeMillis() - pressTime;
         timer.cancel();
         timer.purge();
-        if (duration >= 500 && duration < 2000) { // short press
-          mFBListener.onShortRelease(buttonID);
-          return true;
-        } else if (duration >= 2000) { // long press
-          mFBListener.onLongRelease(buttonID);
-          return true;
-        }
+        if (duration >= SHORT_PRESS_DELAY && duration < LONG_PRESS_DELAY)
+          mFourButtonListener.onShortRelease(buttonID);
+        else if (duration >= LONG_PRESS_DELAY)
+          mFourButtonListener.onLongRelease(buttonID);
+        return true;
       }
       return false;
     }

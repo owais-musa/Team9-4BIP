@@ -7,8 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * @author Itamar
+ * @author Itamar Bitton
  * 
+ *         Displays app settings.
  */
 public class SettingsFragment extends Fragment {
   @Override

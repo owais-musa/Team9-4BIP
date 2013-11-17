@@ -7,8 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * @author Itamar
+ * @author Itamar Bitton
  * 
+ *         Displays the available protocols in which the message can be sent.
  */
 public class ProtocolFragment extends Fragment {
   @Override

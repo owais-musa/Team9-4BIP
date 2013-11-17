@@ -1,8 +1,9 @@
 package il.ac.technion.cs.ssdl.cs234311.yp09.states;
 
 import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
-import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.ControllerListener.FragmentID;
+import il.ac.technion.cs.ssdl.cs234311.yp09.fbip.MainActivity.FragmentID;
 
+<<<<<<< HEAD
 /**
  * @author Muhammad Watad
  * @email Muhammad.Watad@Gmail.com
@@ -15,6 +16,10 @@ public final class MainState extends State {
    * @param c
    *          an object mediating between the model and the view.
    */
+=======
+public class MainState extends State {
+
+>>>>>>> b4dec837572c75d788b7a3889e41ab7d97063b13
   public MainState(final Controller c) {
     super(c);
     shortPress[0] = "Keyboard";
