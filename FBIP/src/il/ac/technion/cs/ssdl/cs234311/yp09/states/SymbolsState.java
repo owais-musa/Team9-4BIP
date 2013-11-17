@@ -2,13 +2,28 @@ package il.ac.technion.cs.ssdl.cs234311.yp09.states;
 
 import il.ac.technion.cs.ssdl.cs234311.yp09.controller.Controller;
 
-public class SymbolsState extends State {
+/**
+ * @author Muhammad Watad
+ * @email Muhammad.Watad@Gmail.com
+ * @date 6/11/2013
+ * 
+ */
+public final class SymbolsState extends State {
 
+  /**
+   * @param c
+   *          an object mediating between the model and the view.
+   * @param symbols
+   *          commonly used characters.
+   * @param levelOne
+   *          an indication whether we are dividing the symbols for the first
+   *          time. This is used as some symbols are used more than others.
+   */
   public SymbolsState(final Controller c, final String[] symbols,
       final boolean levelOne) {
     super(c);
     if (levelOne) {
-      shortPress[0] = Parser.findHighPrioContent(symbols, 0, 3);
+      shortPress[0] = Parser.findHighPriorityContent(symbols, 0, 3);
       shortPress[1] = Parser.findContent(symbols, 4, symbols.length - 1, 0, 3);
       shortPress[2] = Parser.findContent(symbols, 4, symbols.length - 1, 1, 3);
       shortPress[3] = Parser.findContent(symbols, 4, symbols.length - 1, 2, 3);
@@ -24,68 +39,66 @@ public class SymbolsState extends State {
   }
 
   @Override
-  public State onShort1Press() {
-    return shortOpLogic(1);
+  public final State onShort1Press() {
+    return calculateNextStateWhenShortPressed(1);
   }
 
   @Override
-  public State onShort2Press() {
-    return shortOpLogic(2);
+  public final State onShort2Press() {
+    return calculateNextStateWhenShortPressed(2);
   }
 
   @Override
-  public State onShort3Press() {
-    return shortOpLogic(3);
+  public final State onShort3Press() {
+    return calculateNextStateWhenShortPressed(3);
   }
 
   @Override
-  public State onShort4Press() {
-    return shortOpLogic(4);
+  public final State onShort4Press() {
+    return calculateNextStateWhenShortPressed(4);
   }
 
-  public State shortOpLogic(final int i) {
-    final int size = shortPress[i - 1].split(" ").length;
-    if (shortPress[i - 1].equals(""))
-      /*
-       * In case some of the windows are empty. For example: having 3 numbers to
-       * be shown on 4 windows. I solved the issue by remaining in the same
-       * state.
-       */
+  /**
+   * @param index
+   *          the index of the button pressed
+   * @return the next state.
+   */
+  public final State calculateNextStateWhenShortPressed(final int index) {
+    if (shortPress[index - 1].equals(""))
       return this;
-    else if (size == 1) {
-      if (shortPress[i - 1].equals("space"))
+    if (1 == shortPress[index - 1].split(" ").length) {
+      if (shortPress[index - 1].equals("space"))
         Controller.m_message.insertChar(' ');
       else
-        Controller.m_message.insertChar(shortPress[i - 1].charAt(0));
+        Controller.m_message.insertChar(shortPress[index - 1].charAt(0));
       return new KeyboardState(mController);
-    } else {
-      final String[] choosenItems = shortPress[i - 1].split(" ");
-      return new SymbolsState(mController, choosenItems, false);
     }
+    return new SymbolsState(mController, shortPress[index - 1].split(" "),
+        false);
   }
 
   // Back
   @Override
-  public State onLong1Press() {
+  public final State onLong1Press() {
     return new KeyboardState(mController);
   }
 
   // :-)
   @Override
-  public State onLong2Press() {
+  public final State onLong2Press() {
     return new SmileysState(mController, KeyboardState.smileys);
   }
 
   // UNUSED
   @Override
-  public State onLong3Press() {
+  public final State onLong3Press() {
     // Button is UNUSED in the first iteration
     return this;
   }
 
   // UNUSED
   @Override
-  public State onLong4Press() {
+  public final State onLong4Press() {
     // Button is UNUSED in the first iteration
     return this;
   }
