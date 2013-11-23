@@ -25,7 +25,14 @@ public class Controller implements Serializable, FourButtonsListener {
   /**
    * Holds the current message text
    */
-  static public TextController m_message = new TextController();
+  static public TextController m_message = new TextController(false);
+
+  /**
+   * Holds the current number of the recipient
+   */
+  static public TextController m_recipientNumber = new TextController(true);
+
+  static public ActiveOp m_activeOp = ActiveOp.MESSAGE;
 
   private static final long serialVersionUID = 4242079014671416782L;
 
@@ -54,6 +61,20 @@ public class Controller implements Serializable, FourButtonsListener {
      * 
      */
     RED_PRESS
+  }
+
+  /**
+  *
+  */
+  public static enum ActiveOp {
+    /**
+    * 
+    */
+    MESSAGE,
+    /**
+    * 
+    */
+    RECIPIENT
   }
 
   /**
@@ -87,6 +108,13 @@ public class Controller implements Serializable, FourButtonsListener {
     m_controllerListener.onLongInfoUpdate(m_currentState.longPress);
     m_controllerListener.onUpdateMessage(m_message.getText(),
         m_message.getCursorPosition());
+    m_controllerListener.onUpdateRecipient(m_recipientNumber.getText(),
+        m_recipientNumber.getCursorPosition());
+
+    // Itamar: here I am updating the active edit text, m_activeOp may be
+    // MESSAGE or RECIPIENT
+    m_controllerListener.onUpdateActiveEditText(m_activeOp);
+
     m_controllerListener.onUpdateDisplay();
   }
 

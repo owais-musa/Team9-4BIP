@@ -19,15 +19,53 @@ public class TextController {
   private List<Character> m_prevText;
   private int m_prevCursorPosition;
 
+  private final boolean m_justNumbers;
+
   private void saveData() {
     m_prevText = new ArrayList<Character>(m_text);
     m_prevCursorPosition = m_cursorPosition;
   }
 
+  private static boolean isNumber(final char in_char) {
+    final int value = in_char - '0';
+
+    if (value >= 0 && value <= 9)
+      return true;
+
+    return false;
+  }
+
+  private static boolean containsJustNumbers(final String in_string) {
+    for (int i = 0; i < in_string.length(); i++)
+      if (!isNumber(in_string.charAt(i)))
+        return false;
+
+    return true;
+  }
+
+  /**
+   * 
+   * @author Owais Musa
+   * 
+   */
+  public static class JustNumbersException extends Exception {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+  }
+
   /**
    * Constructs the class with an empty text
+   * 
+   * @param in_justNumbers
+   *          true if and only if this text will contain just numbers
    */
-  public TextController() {
+  public TextController(final boolean in_justNumbers) {
+    m_justNumbers = in_justNumbers;
+
     m_text = new ArrayList<Character>();
     m_cursorPosition = 0;
   }
@@ -37,9 +75,14 @@ public class TextController {
    * 
    * @param in_newString
    *          The string to be added
+   * @throws JustNumbersException
    */
-  public void insertChars(final String in_newString) {
+  public void insertChars(final String in_newString)
+      throws JustNumbersException {
     assert m_cursorPosition >= 0 && m_cursorPosition <= m_text.size();
+    if (m_justNumbers && !containsJustNumbers(in_newString))
+      throw new JustNumbersException();
+
     saveData();
 
     for (int i = 0; i < in_newString.length(); i++) {
@@ -54,9 +97,13 @@ public class TextController {
    * 
    * @param in_newChar
    *          The new character to be added to the text
+   * @throws JustNumbersException
    */
-  public void insertChar(final char in_newChar) {
+  public void insertChar(final char in_newChar) throws JustNumbersException {
     assert m_cursorPosition >= 0 && m_cursorPosition <= m_text.size();
+    if (m_justNumbers && !isNumber(in_newChar))
+      throw new JustNumbersException();
+
     saveData();
 
     m_text.add(m_cursorPosition, Character.valueOf(in_newChar));
